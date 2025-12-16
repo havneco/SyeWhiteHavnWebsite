@@ -11,7 +11,8 @@ import SageChat from './components/SageChat';
 import UserProfileWidget from './components/UserProfileWidget';
 import { Analytics } from '@vercel/analytics/react';
 
-// ... (existing code)
+import ScrollToTop from './components/ScrollToTop';
+import AdminDashboard from './pages/AdminDashboard';
 
 const App: React.FC = () => {
   return (
