@@ -9,13 +9,19 @@ const UserProfileWidget: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
-        if (!auth) return;
+        if (!auth) {
+            console.error("Firebase Auth not initialized in UserProfileWidget");
+            return;
+        }
         const unsubscribe = onAuthStateChanged(auth, (u) => setUser(u));
         return () => unsubscribe();
     }, []);
 
     const handleLogin = async () => {
-        if (!auth) return;
+        if (!auth) {
+            console.error("Cannot login: Auth not initialized");
+            return;
+        }
         try {
             await signInWithPopup(auth, googleProvider);
         } catch (e) {
@@ -30,7 +36,7 @@ const UserProfileWidget: React.FC = () => {
     };
 
     return (
-        <div className="fixed bottom-6 left-6 z-50">
+        <div className="fixed bottom-6 left-6 z-[100]">
             <div className="relative">
                 {/* Trigger Button */}
                 <button
