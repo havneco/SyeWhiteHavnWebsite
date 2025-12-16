@@ -15,25 +15,8 @@ const Footer: React.FC = () => {
           &copy; {new Date().getFullYear()} Sye White. All rights reserved. <br />
           Helena, Montana.
         </p>
-        
-        <div className="flex justify-center">
-          <button 
-            onClick={openLogin}
-            className={`text-xs flex items-center gap-1 transition-colors ${
-              !isFirebaseReady 
-                ? 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-200' 
-                : isAdmin 
-                  ? 'text-green-500' 
-                  : 'text-gray-300 hover:text-gray-600 dark:hover:text-gray-200'
-            }`}
-          >
-            {!isFirebaseReady ? (
-              <><AlertCircle size={12} /> Setup Admin</>
-            ) : (
-              <><Lock size={12} /> {isAdmin ? 'Admin Active' : 'Admin Login'}</>
-            )}
-          </button>
-        </div>
+
+
       </div>
     </footer>
   );

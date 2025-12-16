@@ -8,19 +8,10 @@ import { AdminProvider } from './context/AdminContext';
 import { ThemeProvider } from './context/ThemeContext';
 import AdminLoginModal from './components/AdminLoginModal';
 import SageChat from './components/SageChat';
+import UserProfileWidget from './components/UserProfileWidget';
 import { Analytics } from '@vercel/analytics/react';
-import AdminDashboard from './pages/AdminDashboard';
 
-// Scroll to top component
-const ScrollToTop = () => {
-  const { pathname } = useLocation();
-  useLayoutEffect(() => {
-    if (!window.location.hash) {
-      window.scrollTo({ top: 0, behavior: 'instant' });
-    }
-  }, [pathname]);
-  return null;
-};
+// ... (existing code)
 
 const App: React.FC = () => {
   return (
@@ -40,6 +31,7 @@ const App: React.FC = () => {
             <Footer />
             <AdminLoginModal />
             <SageChat />
+            <UserProfileWidget />
             <Analytics />
           </div>
         </Router>
