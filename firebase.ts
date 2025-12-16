@@ -8,19 +8,18 @@ import { getStorage } from 'firebase/storage';
 // Get this from: Firebase Console -> Project Settings -> General -> Your apps
 // ------------------------------------------------------------------
 const firebaseConfig = {
-  apiKey: "Paste_Your_API_Key_Here",
-  authDomain: "your-project-id.firebaseapp.com",
-  projectId: "your-project-id",
-  storageBucket: "your-project-id.appspot.com",
-  messagingSenderId: "00000000000",
-  appId: "1:00000000000:web:000000000000000000"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
+
 // ------------------------------------------------------------------
 
-// Safety check: Don't initialize if keys aren't set
-const isConfigured = firebaseConfig.apiKey !== "Paste_Your_API_Key_Here";
-
-// Initialize Firebase only if configured
+// Safety check: Don't initialize if keys are missing
+const isConfigured = !!firebaseConfig.apiKey;
 const app = isConfigured ? initializeApp(firebaseConfig) : null;
 
 // Export services (or null if not configured)
