@@ -9,8 +9,9 @@ export const NAV_ITEMS = [
   { label: 'Services', href: '#services' },
   { label: 'Projects', href: '#projects' },
   { label: 'Apps', href: '#apps' },
-  { label: 'Media Kit', href: '/media-kit' },
+  { label: 'Media Kit', href: '#media-kit' },
   { label: 'Contact', href: '#contact' },
+  { label: 'Pitch 42', href: '#pitch-42' },
 ];
 
 export const CONTACT_INFO = {
@@ -30,8 +31,8 @@ export const SITE_IMAGES = {
   hospitality_shot: "https://i.imgur.com/PVBTUvE.jpeg",
   adventure_shot: "https://i.imgur.com/AWjD0Im.jpeg",
   dog_training_shot: "https://i.imgur.com/8hbAr4E.jpeg",
-  headshot_print: "https://i.imgur.com/iOYQeWm.png",
-  headshot_action: "https://i.imgur.com/q63gQur.jpeg",
+  headshot_print: "/sye_headshot.jpg",
+  headshot_action: "/sye_adventure.jpg",
   section_divider: "https://images.unsplash.com/photo-1551524559-8af4e6624178?auto=format&fit=crop&q=80&w=2000", // Montana/Mountain landscape
   project_0: "https://i.imgur.com/uwIT889.jpeg", // Havn Logo
   project_1: "https://i.imgur.com/iOYQeWm.png", // Wealth Council Image
@@ -48,11 +49,11 @@ export const HERO_CONTENT = {
 };
 
 export const ABOUT_CONTENT = {
-  hook: "At 32, I've built 100+ applications using cutting-edge AI platforms, closed commercial real estate deals in Montana, and launched multiple fintech ventures — all while maintaining the work ethic I learned bailing hay for $75 a day.",
-  bio: "My name is Sye White. I am a 32-year-old Native American Assiniboine Sioux and a 5th generation Montana Homesteader. My work ethic started at age 13, bailing hay for Farmer Art. By 15, I entered hospitality, working my way up from Subway to fine dining. My career took me from a wine bar in 2015 to wine distribution, eventually becoming a Sommelier and Maitre'd helping open a hotel with a Michelin-starred chef. I was able to get the Wine Spectator International Restaurant Award for their wine list in the first year of opening. Joining less than 4,000 other restaurants globally, and my third award. It was there—managing high-end guest experiences—where I had the self-reflective conversation of how I was going to give the most positive impact in my lifetime and generations forward.",
+  hook: "At 32, I've built 100+ AI prototypes using cutting-edge platforms, closed commercial real estate deals in Montana, and launched multiple fintech ventures — all while maintaining the work ethic I learned bailing hay for $75 a day.",
+  bio: "My name is Sye White. I am a 32-year-old Native American Assiniboine Sioux and a 5th generation Montana Homesteader. My work ethic started at age 13, bailing hay for Farmer Art. By 15, I entered hospitality, working my way up from Subway to fine dining. My career took me from a wine bar in 2015 to wine distribution, eventually becoming a Sommelier and Maitre'd helping open a hotel with a Michelin-starred chef. It was there—managing high-end guest experiences—where I had the self-reflective conversation of how I was going to give the most positive impact in my lifetime.",
   bio_havn: "Thus, 'Havn' was born, starting with building LuxHavn—building out our family homestead of 480 acres in Eastern Montana.",
   bio_real_estate: "This, of course, was a large financial undertaking, so I decided that the 'snowball method' of real estate might be the best way for me to finance it. I decided to get into real estate and spend my life building a portfolio that will eventually convert into the development. The idea has grown and evolved into what it is today.",
-  current: "In 2020, I got my license, starting in residential before pivoting to Commercial Real Estate. I didn't stop there. I dove into AI, building apps with GPT, Replit, and AI Studio to revolutionize how we work. In 2024, I met Boris in Vegas while in town for a separate work trip, leading to a partnership on MyCEO and the creation of Wealth Council. Today, I continue to build Havn as my ultimate vision while researching AI—the single biggest impacting factor of our lifetime."
+  current: "In 2020, I got my license, starting in residential before pivoting to Commercial Real Estate. I didn't stop there. I dove into AI, building apps with Gemini, Replit, and AI Studio to revolutionize how we work. Today, I continue to build Havn as my ultimate vision while applying AI to solve operational bottlenecks in real-world industries."
 };
 
 export const BRAND_VALUES: BrandValue[] = [
@@ -68,7 +69,7 @@ export const BRAND_VALUES: BrandValue[] = [
   },
   {
     title: "Execution Over Theory",
-    description: "100+ apps isn't theoretical — it's hands-on, production-level execution. I believe in building, testing, iterating, and shipping.",
+    description: "100+ prototypes isn't theoretical — it's hands-on deployment. I believe in building, testing, iterating, and shipping.",
     icon: Zap
   },
   {
@@ -86,10 +87,10 @@ export const SERVICES: Service[] = [
     features: ["Commercial Real Estate (Helena, MT)", "Investment Property Consulting", "Land Evaluation & Acquisition", "International Resort Development"]
   },
   {
-    title: "Technology Development",
+    title: "Technology & Data Architecture",
     icon: Code2,
-    description: "Rapid prototyping and full-stack AI application development using modern multi-model frameworks.",
-    features: ["AI Application Development", "Rapid Prototyping (100+ Apps)", "No-code to Full-stack Solutions", "AI Model Integration"]
+    description: "Rapid prototyping and enterprise-grade data architecture. Building the infrastructure that pays for the vision.",
+    features: ["AI Application Development", "Rapid Prototyping (100+ Tools)", "BigQuery & Data Warehousing", "Full-stack Solutions"]
   },
   {
     title: "Financial Services",
@@ -157,25 +158,25 @@ export const MILESTONES: Milestone[] = [
   { year: "2015-2019", title: "Hospitality Mastery", description: "Climbed from wine bar staff to Maitre'd & Sommelier, opening a hotel with a Michelin-starred chef. The 'Havn' concept was born here." },
   { year: "2020", title: "The Pivot", description: "Obtained Real Estate License. Started in residential, quickly focused on Commercial Real Estate to build the 'Havn' vision." },
   { year: "2021", title: "The Genesis of Havn", description: "Founded Havn and began building the scaffolding and framework for the superapp ecosystem." },
-  { year: "2023", title: "The Tech Sprint", description: "Began building 100+ AI apps using GPT, Replit, AI Studio, and AntiGravity—proving execution over theory." },
+  { year: "2023", title: "The Tech Sprint", description: "Began building 100+ AI prototypes using GPT, Replit, AI Studio, and AntiGravity—proving execution over theory." },
   { year: "2024", title: "Strategic Partnership", description: "Met Boris in Vegas while in town for a separate work trip, leading to a partnership on MyCEO and the creation of Wealth Council." },
   { year: "2025", title: "Wealth Council Launch", description: "Launched the Wealth Council Founder Program to 15 founding members." },
   { year: "2026", title: "Scaling & Launch", description: "Scheduled public launch of Wealth Council. Continued expansion and deployment of the Havn ecosystem." },
 ];
 
 export const TECH_STACK = [
-  "Google AI Studio", "Firebase Studio", "Replit", "AntiGravity", "Lovable", "Vercel", "Python", "TypeScript", "SQL", "GPT-4", "Claude 3.5"
+  "Google AI Studio", "BigQuery", "Parquet", "SQL", "Firebase", "Replit", "AntiGravity", "Lovable", "Vercel", "Python", "TypeScript", "Gemini 2.0"
 ];
 
 export const CHART_DATA: ChartData[] = [
-  { name: 'Apps Built', value: 100 },
+  { name: 'Prototypes', value: 100 },
   { name: 'Years Crypto', value: 14 },
   { name: 'Active Ventures', value: 3 },
   { name: 'Platforms', value: 6 },
 ];
 
 export const STATS_METRICS = [
-  { label: "Applications Built", value: "100+" },
+  { label: "Prototypes Built", value: "100+" },
   { label: "Years in Crypto", value: "14" },
   { label: "Active Ventures", value: "3+" },
   { label: "Platforms Mastered", value: "6" },
@@ -224,13 +225,21 @@ export const APP_LIBRARY: AppTool[] = [
     category: "Hospitality",
     status: "Beta"
   },
-  
+
   // --- LIVE & PUBLIC TOOLS (High Impact) ---
+  {
+    id: "lumina-sensory",
+    name: "Lumina: Sensory Bridge",
+    description: "A dedicated accessibility prosthetic using Gemini Live API to provide real-time video-to-speech visual assistance for the visually impaired.",
+    url: "https://lumina-sensory-bridge-1091719440895.us-west1.run.app",
+    category: "HealthTech",
+    status: "Live"
+  },
   {
     id: "nexus-ai",
     name: "Nexus AI",
     description: "Advanced Conversation Intelligence. Distills wisdom, subtext, and behavioral insights from any interaction using Gemini 3 Pro.",
-    url: "#",
+    url: "https://nexus-ai-1091719440895.us-west1.run.app",
     category: "AI Utility",
     status: "Live"
   },
@@ -238,7 +247,7 @@ export const APP_LIBRARY: AppTool[] = [
     id: "sparky",
     name: "Sparky",
     description: "The TikTok for AI-generated micro-apps and games. Build tools, utilities, or games with a prompt, launch to the feed, and vibe out.",
-    url: "#",
+    url: "https://sparky-1091719440895.us-west1.run.app",
     category: "AI Utility",
     status: "Live"
   },
@@ -246,47 +255,15 @@ export const APP_LIBRARY: AppTool[] = [
     id: "lumina-sensory",
     name: "Lumina: Sensory Bridge",
     description: "A dedicated accessibility prosthetic using Gemini Live API to provide real-time video-to-speech visual assistance for the visually impaired.",
-    url: "#",
+    url: "https://lumina-sensory-bridge-1091719440895.us-west1.run.app",
     category: "HealthTech",
-    status: "Live"
-  },
-  {
-    id: "prompt-dj",
-    name: "PromptDJ",
-    description: "Steer a continuous stream of music with text prompts.",
-    url: "#",
-    category: "AI Utility",
-    status: "Live"
-  },
-  {
-    id: "prompt-dj-midi",
-    name: "PromptDJ MIDI",
-    description: "Control real time music with a MIDI controller.",
-    url: "#",
-    category: "AI Utility",
-    status: "Live"
-  },
-  {
-    id: "infinite-wiki",
-    name: "Infinite Wiki",
-    description: "Explore an infinite wiki where every word is a hyperlink to descriptions generated in real-time.",
-    url: "#",
-    category: "AI Utility",
-    status: "Live"
-  },
-  {
-    id: "research-vis",
-    name: "Research Visualization Gallery",
-    description: "Research paper reimagined as an elegant, interactive narrative site.",
-    url: "#",
-    category: "AI Utility",
     status: "Live"
   },
   {
     id: "mk-ultrai",
     name: "MK UltrAI",
     description: "An application to design custom media kits from business cards to billboards.",
-    url: "#",
+    url: "https://mk-ultrai-1091719440895.us-west1.run.app",
     category: "AI Utility",
     status: "Live"
   },
@@ -294,7 +271,7 @@ export const APP_LIBRARY: AppTool[] = [
     id: "actually-useful",
     name: "Actually Useful",
     description: "A smart task manager and idea funnel that helps you capture, prioritize, and act on your thoughts using AI.",
-    url: "#",
+    url: "https://actually-useful-1091719440895.us-west1.run.app",
     category: "AI Utility",
     status: "Live"
   },
@@ -302,7 +279,7 @@ export const APP_LIBRARY: AppTool[] = [
     id: "runway-node",
     name: "Runway Node Emulator",
     description: "A visual tool to emulate and test node-based workflows, allowing users to create, connect, and manage nodes in a simulated environment.",
-    url: "#",
+    url: "https://runway-node-emulator-1091719440895.us-west1.run.app",
     category: "AI Utility",
     status: "Live"
   },
@@ -310,7 +287,7 @@ export const APP_LIBRARY: AppTool[] = [
     id: "cute-pai",
     name: "Cute as PAI",
     description: "Create fun, beautiful, and unique AI-generated portraits and avatars. Perfect for social media and profiles.",
-    url: "#",
+    url: "https://cute-as-pai-ai-portrait-generator-555155482674.us-west1.run.app",
     category: "AI Utility",
     status: "Live"
   },
@@ -318,7 +295,7 @@ export const APP_LIBRARY: AppTool[] = [
     id: "naturescape",
     name: "NatureScape Designer",
     description: "An interactive visual designer that uses AI to generate, analyze, and troubleshoot aquascapes, terracapes, and backyard ponds.",
-    url: "#",
+    url: "https://naturescape-designer-191815171115.us-west1.run.app",
     category: "Other",
     status: "Live"
   },
@@ -326,7 +303,7 @@ export const APP_LIBRARY: AppTool[] = [
     id: "watercolor-assist",
     name: "Watercolor Artist's Assistant",
     description: "Upload a photo and get AI-powered guidance for your watercolor painting. Analyzes lighting, textures, and suggests palettes.",
-    url: "#",
+    url: "https://watercolor-artist-s-assistant-1091719440895.us-west1.run.app",
     category: "AI Utility",
     status: "Live"
   },

@@ -8,14 +8,16 @@ interface EditableImageProps {
   alt: string;
   className?: string;
   containerClassName?: string;
+  loading?: 'lazy' | 'eager';
 }
 
-const EditableImage: React.FC<EditableImageProps> = ({ 
-  imageKey, 
-  defaultSrc, 
-  alt, 
+const EditableImage: React.FC<EditableImageProps> = ({
+  imageKey,
+  defaultSrc,
+  alt,
   className = "",
-  containerClassName = ""
+  containerClassName = "",
+  loading
 }) => {
   const { isAdmin, images, uploadImage, setImageUrl, isFirebaseReady } = useAdmin();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -39,13 +41,13 @@ const EditableImage: React.FC<EditableImageProps> = ({
           const canvas = document.createElement('canvas');
           const MAX_WIDTH = 1600; // Larger max width for Cloud Storage
           const scaleSize = MAX_WIDTH / img.width;
-          
+
           canvas.width = scaleSize < 1 ? MAX_WIDTH : img.width;
           canvas.height = scaleSize < 1 ? img.height * scaleSize : img.height;
 
           const ctx = canvas.getContext('2d');
           ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
-          
+
           // Export as Blob (JPEG 85% quality)
           canvas.toBlob((blob) => {
             if (blob) resolve(blob);
@@ -89,7 +91,7 @@ const EditableImage: React.FC<EditableImageProps> = ({
   };
 
   return (
-    <div 
+    <div
       className={`relative group ${containerClassName}`}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => {
@@ -97,10 +99,11 @@ const EditableImage: React.FC<EditableImageProps> = ({
         if (!linkInput) setShowLinkInput(false);
       }}
     >
-      <img 
-        src={currentSrc} 
-        alt={alt} 
+      <img
+        src={currentSrc}
+        alt={alt}
         className={className}
+        loading={loading}
         onError={(e) => {
           e.currentTarget.src = "https://placehold.co/800x600?text=Image+Not+Found";
         }}
@@ -109,18 +112,18 @@ const EditableImage: React.FC<EditableImageProps> = ({
       {/* Admin Overlay */}
       {isAdmin && (
         <div className={`absolute inset-0 bg-black/80 backdrop-blur-md transition-all duration-300 flex flex-col items-center justify-center p-4 ${isHovering || showLinkInput ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-          
+
           {!showLinkInput ? (
             <div className="flex flex-col gap-3">
-              <input 
-                type="file" 
-                ref={fileInputRef} 
-                onChange={handleFileChange} 
-                accept="image/*" 
-                className="hidden" 
+              <input
+                type="file"
+                ref={fileInputRef}
+                onChange={handleFileChange}
+                accept="image/*"
+                className="hidden"
               />
-              
-              <button 
+
+              <button
                 onClick={() => fileInputRef.current?.click()}
                 disabled={isProcessing}
                 className="bg-luxury-gold text-black px-4 py-2 rounded-lg font-bold flex items-center justify-center gap-2 transform hover:scale-105 transition-all shadow-lg w-40 text-sm"
@@ -129,7 +132,7 @@ const EditableImage: React.FC<EditableImageProps> = ({
                 Upload File
               </button>
 
-              <button 
+              <button
                 onClick={() => setShowLinkInput(true)}
                 className="bg-gray-800 text-white px-4 py-2 rounded-lg font-bold flex items-center justify-center gap-2 transform hover:scale-105 transition-all shadow-lg border border-gray-600 w-40 text-sm"
               >
@@ -141,22 +144,22 @@ const EditableImage: React.FC<EditableImageProps> = ({
             <div className="w-full max-w-xs flex flex-col gap-2">
               <p className="text-white text-xs font-bold mb-1 uppercase tracking-wider">Paste Image URL</p>
               <div className="flex gap-2">
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   value={linkInput}
                   onChange={(e) => setLinkInput(e.target.value)}
                   placeholder="https://..."
                   className="flex-1 bg-white text-black px-2 py-1 rounded text-sm"
                   autoFocus
                 />
-                <button 
+                <button
                   onClick={handleLinkSubmit}
                   className="bg-green-500 text-white p-1 rounded hover:bg-green-600"
                 >
                   <Check size={18} />
                 </button>
               </div>
-              <button 
+              <button
                 onClick={() => setShowLinkInput(false)}
                 className="text-gray-400 text-xs hover:text-white underline text-center"
               >

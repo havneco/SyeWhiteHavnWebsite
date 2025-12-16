@@ -1,15 +1,28 @@
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+
+let aiClient: any = null;
+
+const getAiClient = () => {
+  if (!aiClient) {
+    const apiKey = process.env.API_KEY;
+    if (!apiKey) {
+      throw new Error("API Key is missing. Please configuration GEMINI_API_KEY in Vercel.");
+    }
+    aiClient = new GoogleGenAI({ apiKey });
+  }
+  return aiClient;
+}
 
 export const generateAsset = async (prompt: string): Promise<string> => {
   try {
+    const ai = getAiClient();
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash-image',
       contents: prompt,
       config: {
         imageConfig: {
-          aspectRatio: "1:1", // Changed to square for better headshot/social consistency
+          aspectRatio: "1:1",
           imageSize: "1K"
         }
       }

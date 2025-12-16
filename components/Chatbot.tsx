@@ -54,7 +54,7 @@ const Chatbot: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [chatSession, setChatSession] = useState<Chat | null>(null);
-  
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Initialize Chat Session
@@ -81,8 +81,30 @@ const Chatbot: React.FC = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isOpen]);
 
+  // Auto-show welcome message after delay
+  const [showWelcome, setShowWelcome] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!isOpen) setShowWelcome(true);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
   const handleSend = async () => {
-    if (!inputValue.trim() || !chatSession) return;
+    if (!inputValue.trim()) return;
+
+    // UI check for API key
+    if (!process.env.API_KEY) {
+      setMessages(prev => [...prev, { role: 'user', text: inputValue.trim() }]);
+      setInputValue('');
+      setTimeout(() => {
+        setMessages(prev => [...prev, { role: 'model', text: "I'm currently offline (System: API Key Missing). Please check Vercel settings." }]);
+      }, 500);
+      return;
+    }
+
+    if (!chatSession) return;
 
     const userMsg = inputValue.trim();
     setInputValue('');
@@ -92,7 +114,7 @@ const Chatbot: React.FC = () => {
     try {
       const result: GenerateContentResponse = await chatSession.sendMessage({ message: userMsg });
       const responseText = result.text || "I'm having trouble connecting to the neural network. Please try again or email Sye directly.";
-      
+
       setMessages(prev => [...prev, { role: 'model', text: responseText }]);
     } catch (error) {
       console.error("Chat Error:", error);
@@ -109,29 +131,45 @@ const Chatbot: React.FC = () => {
     }
   };
 
-  if (!process.env.API_KEY) return null; // Don't render if no key
+  // if (!process.env.API_KEY) return null; // REMOVED to allow UI to render
 
   return (
     <>
+      {/* Welcome Bubble */}
+      {!isOpen && showWelcome && (
+        <div className="fixed bottom-24 right-6 z-40 max-w-[200px] bg-white dark:bg-luxury-black border border-gray-200 dark:border-white/10 p-4 rounded-xl rounded-br-none shadow-xl animate-bounce-subtle">
+          <button
+            onClick={() => setShowWelcome(false)}
+            className="absolute top-1 right-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+          >
+            <X size={12} />
+          </button>
+          <p className="text-sm text-gray-800 dark:text-gray-200">
+            Hi! I'm <span className="font-bold text-luxury-jade dark:text-luxury-gold">Sage</span>. Ask me anything about Sye's projects.
+          </p>
+        </div>
+      )}
+
       {/* Toggle Button */}
       <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-6 right-6 z-50 p-4 rounded-full shadow-2xl transition-all duration-300 ${
-          isOpen 
-            ? 'bg-gray-800 text-white rotate-90' 
+        onClick={() => {
+          setIsOpen(!isOpen);
+          setShowWelcome(false);
+        }}
+        className={`fixed bottom-6 right-6 z-50 p-4 rounded-full shadow-2xl transition-all duration-300 ${isOpen
+            ? 'bg-gray-800 text-white rotate-90'
             : 'bg-luxury-jade dark:bg-luxury-gold text-white dark:text-black hover:scale-110'
-        }`}
+          }`}
       >
         {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
       </button>
 
       {/* Chat Window */}
-      <div 
-        className={`fixed bottom-24 right-6 w-[90vw] md:w-96 bg-white dark:bg-luxury-black border border-gray-200 dark:border-white/10 rounded-2xl shadow-2xl z-50 flex flex-col transition-all duration-300 origin-bottom-right overflow-hidden ${
-          isOpen 
-            ? 'opacity-100 scale-100 translate-y-0' 
+      <div
+        className={`fixed bottom-24 right-6 w-[90vw] md:w-96 bg-white dark:bg-luxury-black border border-gray-200 dark:border-white/10 rounded-2xl shadow-2xl z-50 flex flex-col transition-all duration-300 origin-bottom-right overflow-hidden ${isOpen
+            ? 'opacity-100 scale-100 translate-y-0'
             : 'opacity-0 scale-95 translate-y-10 pointer-events-none'
-        }`}
+          }`}
         style={{ height: '500px', maxHeight: '80vh' }}
       >
         {/* Header */}
@@ -153,35 +191,33 @@ const Chatbot: React.FC = () => {
         {/* Messages Area */}
         <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 dark:bg-[#0a0a0a]">
           {messages.map((msg, idx) => (
-            <div 
-              key={idx} 
+            <div
+              key={idx}
               className={`flex items-start gap-2.5 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}
             >
-              <div 
-                className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
-                  msg.role === 'user' 
-                    ? 'bg-gray-200 dark:bg-white/10 text-gray-600 dark:text-gray-300' 
+              <div
+                className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${msg.role === 'user'
+                    ? 'bg-gray-200 dark:bg-white/10 text-gray-600 dark:text-gray-300'
                     : 'bg-luxury-jade/10 dark:bg-luxury-gold/10 text-luxury-jade dark:text-luxury-gold border border-luxury-jade/20 dark:border-luxury-gold/20'
-                }`}
+                  }`}
               >
                 {msg.role === 'user' ? <User size={14} /> : <Bot size={14} />}
               </div>
-              
-              <div 
-                className={`p-3 rounded-2xl text-sm max-w-[80%] leading-relaxed ${
-                  msg.role === 'user' 
-                    ? 'bg-gray-200 dark:bg-white/10 text-gray-900 dark:text-white rounded-tr-none' 
+
+              <div
+                className={`p-3 rounded-2xl text-sm max-w-[80%] leading-relaxed ${msg.role === 'user'
+                    ? 'bg-gray-200 dark:bg-white/10 text-gray-900 dark:text-white rounded-tr-none'
                     : 'bg-white dark:bg-white/5 border border-gray-100 dark:border-white/5 text-gray-700 dark:text-gray-300 rounded-tl-none shadow-sm'
-                }`}
+                  }`}
               >
-                 {/* Render line breaks if any */}
-                 {msg.text.split('\n').map((line, i) => (
-                    <p key={i} className={i > 0 ? 'mt-2' : ''}>{line}</p>
-                 ))}
+                {/* Render line breaks if any */}
+                {msg.text.split('\n').map((line, i) => (
+                  <p key={i} className={i > 0 ? 'mt-2' : ''}>{line}</p>
+                ))}
               </div>
             </div>
           ))}
-          
+
           {isLoading && (
             <div className="flex items-start gap-2.5">
               <div className="w-8 h-8 rounded-full bg-luxury-jade/10 dark:bg-luxury-gold/10 text-luxury-jade dark:text-luxury-gold flex items-center justify-center border border-luxury-jade/20 dark:border-luxury-gold/20">
@@ -217,8 +253,8 @@ const Chatbot: React.FC = () => {
             </button>
           </div>
           <div className="mt-2 text-[10px] text-center text-gray-400 flex items-center justify-center gap-1">
-             <AlertCircle size={10} />
-             <span>AI can make mistakes. Verify important info.</span>
+            <AlertCircle size={10} />
+            <span>AI can make mistakes. Verify important info.</span>
           </div>
         </div>
       </div>

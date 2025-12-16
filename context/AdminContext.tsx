@@ -1,27 +1,29 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { 
-  signInWithEmailAndPassword, 
-  signOut, 
-  onAuthStateChanged, 
-  User 
+import {
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged,
+  User
 } from 'firebase/auth';
-import { 
-  doc, 
-  setDoc, 
-  onSnapshot 
+import {
+  doc,
+  setDoc,
+  onSnapshot
 } from 'firebase/firestore';
-import { 
-  ref, 
-  uploadBytes, 
+import {
+  ref,
+  uploadBytes,
   getDownloadURL,
   uploadString
 } from 'firebase/storage';
-import { auth, db, storage } from '../firebase';
+import { auth, db, storage, googleProvider } from '../firebase';
 import { generateAsset, SITE_PROMPTS } from '../utils/aiGenerator';
 
 interface AdminContextType {
   isAdmin: boolean;
   login: (email: string, pass: string) => Promise<boolean>;
+  loginWithGoogle: () => Promise<boolean>;
   logout: () => void;
   images: Record<string, string>;
   uploadImage: (key: string, file: Blob) => Promise<void>;
@@ -57,8 +59,20 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       return;
     }
 
-    const unsubscribe = onAuthStateChanged(auth, (user: User | null) => {
-      setIsAdmin(!!user);
+    const unsubscribe = onAuthStateChanged(auth, async (user: User | null) => {
+      if (user) {
+        const allowedEmails = ['syewhite@gmail.com', 'sye@luxhavn.com']; // Added your business email too just in case
+        if (user.email && allowedEmails.includes(user.email)) {
+          setIsAdmin(true);
+        } else {
+          console.warn("Unauthorized access attempt:", user.email);
+          setIsAdmin(false);
+          await signOut(auth); // Boot them out immediately
+          alert("Access Denied: You are not authorized to view this area.");
+        }
+      } else {
+        setIsAdmin(false);
+      }
     });
     return () => unsubscribe();
   }, []);
@@ -93,6 +107,18 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       return true;
     } catch (error) {
       console.error("Login failed", error);
+      return false;
+    }
+  };
+
+  const loginWithGoogle = async () => {
+    if (!auth) return false;
+    try {
+      await signInWithPopup(auth, googleProvider);
+      setIsLoginOpen(false);
+      return true;
+    } catch (error) {
+      console.error("Google Login failed", error);
       return false;
     }
   };
@@ -146,7 +172,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
   const generateAllAssets = async () => {
     setGenerationStatus('Starting AI Generator...');
-    
+
     const prompts = Object.entries(SITE_PROMPTS);
     const newImages = { ...images };
 
@@ -154,19 +180,19 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       setGenerationStatus(`Generating ${key}...`);
       try {
         const base64Image = await generateAsset(prompt);
-        
+
         // Save to state/storage immediately
         newImages[key] = base64Image;
         setImages({ ...newImages }); // Update UI immediately
 
         // If Firebase is connected, upload it
         if (storage && db && isAdmin) {
-             const storageRef = ref(storage, `images/${key}_ai_${Date.now()}`);
-             await uploadString(storageRef, base64Image, 'data_url');
-             const downloadURL = await getDownloadURL(storageRef);
-             await setDoc(doc(db, 'content', 'images'), { [key]: downloadURL }, { merge: true });
+          const storageRef = ref(storage, `images/${key}_ai_${Date.now()}`);
+          await uploadString(storageRef, base64Image, 'data_url');
+          const downloadURL = await getDownloadURL(storageRef);
+          await setDoc(doc(db, 'content', 'images'), { [key]: downloadURL }, { merge: true });
         } else {
-             localStorage.setItem('sye_site_images', JSON.stringify(newImages));
+          localStorage.setItem('sye_site_images', JSON.stringify(newImages));
         }
       } catch (err) {
         console.error(`Failed to generate ${key}`, err);
@@ -180,15 +206,16 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const closeLogin = () => setIsLoginOpen(false);
 
   return (
-    <AdminContext.Provider value={{ 
-      isAdmin, 
-      login, 
-      logout, 
-      images, 
-      uploadImage, 
+    <AdminContext.Provider value={{
+      isAdmin,
+      login,
+      loginWithGoogle,
+      logout,
+      images,
+      uploadImage,
       setImageUrl,
-      isLoginOpen, 
-      openLogin, 
+      isLoginOpen,
+      openLogin,
       closeLogin,
       loading,
       isFirebaseReady,

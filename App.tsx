@@ -3,12 +3,13 @@ import React, { useLayoutEffect } from 'react';
 import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Home from './pages/Home';
-import MediaKitPage from './pages/MediaKitPage';
 import Footer from './components/Footer';
 import { AdminProvider } from './context/AdminContext';
 import { ThemeProvider } from './context/ThemeContext';
 import AdminLoginModal from './components/AdminLoginModal';
-import Chatbot from './components/Chatbot';
+import SageChat from './components/SageChat';
+import { Analytics } from '@vercel/analytics/react';
+import AdminDashboard from './pages/AdminDashboard';
 
 // Scroll to top component
 const ScrollToTop = () => {
@@ -32,13 +33,14 @@ const App: React.FC = () => {
             <main className="flex-grow">
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/media-kit" element={<MediaKitPage />} />
+                <Route path="/admin" element={<AdminDashboard />} />
                 <Route path="*" element={<Home />} />
               </Routes>
             </main>
             <Footer />
             <AdminLoginModal />
-            <Chatbot />
+            <SageChat />
+            <Analytics />
           </div>
         </Router>
       </AdminProvider>
