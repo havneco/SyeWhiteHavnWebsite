@@ -1,7 +1,7 @@
 
 
 import React, { useState, useRef, useEffect } from 'react';
-import { GoogleGenAI, Chat, GenerateContentResponse } from "@google/genai";
+import { GoogleGenerativeAI, ChatSession } from "@google/generative-ai";
 import { MessageCircle, X, Send, User, Bot, Loader2, Sparkles, AlertCircle } from 'lucide-react';
 import { ABOUT_CONTENT, CONTACT_INFO, PROJECTS, SERVICES, APP_LIBRARY } from '../constants';
 
@@ -53,7 +53,7 @@ const Chatbot: React.FC = () => {
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [chatSession, setChatSession] = useState<Chat | null>(null);
+  const [chatSession, setChatSession] = useState<ChatSession | null>(null);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -61,11 +61,14 @@ const Chatbot: React.FC = () => {
   useEffect(() => {
     try {
       if (import.meta.env.VITE_GEMINI_API_KEY) {
-        const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
-        const chat = ai.chats.create({
-          model: 'gemini-1.5-flash',
-          config: {
-            systemInstruction: constructSystemPrompt(),
+        const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
+        const model = genAI.getGenerativeModel({
+          model: "gemini-1.5-flash",
+          systemInstruction: constructSystemPrompt()
+        });
+
+        const chat = model.startChat({
+          generationConfig: {
             temperature: 0.7,
           }
         });
@@ -90,8 +93,9 @@ const Chatbot: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const result: GenerateContentResponse = await chatSession.sendMessage({ message: userMsg });
-      const responseText = result.text || "I'm having trouble connecting to the neural network. Please try again or email Sye directly.";
+      const result = await chatSession.sendMessage(userMsg);
+      const response = await result.response;
+      const responseText = response.text() || "I'm having trouble connecting to the neural network. Please try again or email Sye directly.";
 
       setMessages(prev => [...prev, { role: 'model', text: responseText }]);
     } catch (error) {
