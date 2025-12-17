@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { X, Save, User, Briefcase, Hash } from 'lucide-react';
 import { db, auth } from '../firebase';
-import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
-
-interface PersonalizationModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-}
-
+import { doc, getDoc, setDoc, serverTimestamp, addDoc, collection } from 'firebase/firestore';
+// ...
 const PersonalizationModal: React.FC<PersonalizationModalProps> = ({ isOpen, onClose }) => {
     const [name, setName] = useState('');
     const [role, setRole] = useState('');
     const [interests, setInterests] = useState<string[]>([]);
+    const [relation, setRelation] = useState('Observer');
+    const [story, setStory] = useState('');
     const [status, setStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
 
     const availableInterests = ['AI & Tech', 'Real Estate', 'Wealth Building', 'Sovereignty', 'Health/Biohacking'];
+    const relations = ['Observer', 'Friend', 'Business Partner', 'Family', 'Fan', 'Colleague'];
 
     useEffect(() => {
         if (!isOpen || !auth?.currentUser) return;
@@ -28,6 +26,8 @@ const PersonalizationModal: React.FC<PersonalizationModalProps> = ({ isOpen, onC
                 setName(data.displayName || '');
                 setRole(data.role || '');
                 setInterests(data.interests || []);
+                setRelation(data.relation || 'Observer');
+                setStory(data.story || '');
             } else {
                 // Pre-fill from Google Auth if available
                 setName(auth.currentUser!.displayName || '');
@@ -51,12 +51,28 @@ const PersonalizationModal: React.FC<PersonalizationModalProps> = ({ isOpen, onC
         setStatus('saving');
         try {
             const userRef = doc(db, 'users', auth.currentUser.uid, 'settings', 'profile');
+
+            // 1. Save Profile
             await setDoc(userRef, {
                 displayName: name,
                 role,
                 interests,
+                relation,
+                story, // Save locally so they see it
                 updatedAt: serverTimestamp()
             }, { merge: true });
+
+            // 2. Submit Story to Admin Queue (if new story provided)
+            if (story.trim().length > 10) {
+                await addDoc(collection(db, 'sye_stories'), {
+                    uid: auth.currentUser.uid,
+                    author: name,
+                    relation,
+                    content: story,
+                    timestamp: serverTimestamp(),
+                    status: 'pending'
+                });
+            }
 
             setStatus('saved');
             setTimeout(() => {
@@ -68,6 +84,7 @@ const PersonalizationModal: React.FC<PersonalizationModalProps> = ({ isOpen, onC
             setStatus('error');
         }
     };
+
 
     if (!isOpen) return null;
 
@@ -135,6 +152,32 @@ const PersonalizationModal: React.FC<PersonalizationModalProps> = ({ isOpen, onC
                                     {interest}
                                 </button>
                             ))}
+                        </div>
+                    </div>
+
+                    <div className="pt-4 border-t border-zinc-100 dark:border-zinc-800">
+                        <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-3">Help Train Sage</h3>
+
+                        <div className="mb-4">
+                            <label className="block text-xs font-bold uppercase text-zinc-500 mb-1">Your Relation to Sye</label>
+                            <select
+                                value={relation}
+                                onChange={e => setRelation(e.target.value)}
+                                className="w-full bg-gray-50 dark:bg-black border border-zinc-200 dark:border-zinc-800 rounded-lg px-3 py-3 text-gray-900 dark:text-white focus:border-luxury-gold outline-none appearance-none"
+                            >
+                                {relations.map(r => <option key={r} value={r}>{r}</option>)}
+                            </select>
+                        </div>
+
+                        <div>
+                            <label className="block text-xs font-bold uppercase text-zinc-500 mb-1">Share a Story / Intel</label>
+                            <textarea
+                                value={story}
+                                onChange={e => setStory(e.target.value)}
+                                className="w-full bg-gray-50 dark:bg-black border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 text-gray-900 dark:text-white focus:border-luxury-gold outline-none h-24 resize-none text-sm"
+                                placeholder="Share a fact, memory, or detail about Sye to update his digital twin..."
+                            />
+                            <p className="text-[10px] text-zinc-400 mt-1">Stories are reviewed before being added to Sage's brain.</p>
                         </div>
                     </div>
 
