@@ -88,7 +88,7 @@ export const sendMessageToSage = async (
     try {
         // Use the official Node/Web SDK method
         const model = client.getGenerativeModel({
-            model: 'gemini-1.5-flash',
+            model: 'gemini-1.5-flash-001',
             systemInstruction: systemInstruction
         });
 
