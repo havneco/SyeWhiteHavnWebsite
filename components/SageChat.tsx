@@ -3,11 +3,18 @@ import { MessageSquare, X, Send, Sparkles, LogIn, LogOut } from 'lucide-react';
 import { sendMessageToSage } from '../utils/sageBrain';
 import { auth, db, googleProvider } from '../firebase';
 import { signInWithPopup, signOut, onAuthStateChanged, User } from 'firebase/auth';
-import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, setDoc, doc, limit } from 'firebase/firestore';
+import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, setDoc, doc, limit, getDoc } from 'firebase/firestore';
 
 interface Message {
     role: 'user' | 'model';
     content: string;
+}
+
+interface UserProfile {
+    displayName?: string;
+    role?: string;
+    interests?: string[];
+    relation?: string;
 }
 
 const SageChat: React.FC = () => {
@@ -18,6 +25,7 @@ const SageChat: React.FC = () => {
     const [input, setInput] = useState('');
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState<User | null>(null);
+    const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
     // Auto-scroll to bottom
@@ -63,6 +71,20 @@ const SageChat: React.FC = () => {
             }
         });
         return () => unsubscribe();
+    }, [user]);
+
+    // Fetch User Profile for Personalization
+    useEffect(() => {
+        if (!user || !db) { setUserProfile(null); return; }
+        const fetchProfile = async () => {
+            try {
+                const profileDoc = await getDoc(doc(db, 'users', user.uid, 'settings', 'profile'));
+                if (profileDoc.exists()) {
+                    setUserProfile(profileDoc.data() as UserProfile);
+                }
+            } catch (e) { console.warn("Could not fetch profile", e); }
+        };
+        fetchProfile();
     }, [user]);
 
     const handleLogin = async () => {
@@ -114,7 +136,7 @@ const SageChat: React.FC = () => {
 
         try {
             // Send to Sage Brain
-            const response = await sendMessageToSage(newHistory, userMsg);
+            const response = await sendMessageToSage(newHistory, userMsg, userProfile || undefined);
 
             // Save Model Response to Firestore
             if (user && db) {

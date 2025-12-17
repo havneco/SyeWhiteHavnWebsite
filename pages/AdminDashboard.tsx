@@ -19,10 +19,11 @@ const AdminDashboard: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [requests, setRequests] = useState<AccessRequest[]>([]);
-    const [activeTab, setActiveTab] = useState<'pending' | 'history'>('pending');
+    const [activeTab, setActiveTab] = useState<'pending' | 'history' | 'brain' | 'stories' | 'analytics'>('pending');
 
     const [newMemory, setNewMemory] = useState('');
     const [memories, setMemories] = useState<any[]>([]);
+    const [stories, setStories] = useState<any[]>([]);
 
     // Listen for requests and memories
     useEffect(() => {
@@ -48,9 +49,17 @@ const AdminDashboard: React.FC = () => {
             setMemories(mems);
         });
 
+        // Listen to User Stories
+        const qStories = query(collection(db, 'sye_stories'), orderBy('timestamp', 'desc'));
+        const unsubStories = onSnapshot(qStories, (snapshot) => {
+            const s = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            setStories(s);
+        });
+
         return () => {
             unsubRequests();
             unsubMemories();
+            unsubStories();
         };
     }, [isAdmin]);
 
@@ -207,7 +216,19 @@ const AdminDashboard: React.FC = () => {
                             onClick={() => setActiveTab('brain')}
                             className={`px-3 py-1 rounded-full text-xs font-bold transition-colors ${activeTab === 'brain' ? 'bg-luxury-jade text-white' : 'bg-zinc-800 text-zinc-400'}`}
                         >
-                            Sage Brain
+                            Brain
+                        </button>
+                        <button
+                            onClick={() => setActiveTab('stories')}
+                            className={`px-3 py-1 rounded-full text-xs font-bold transition-colors ${activeTab === 'stories' ? 'bg-purple-500 text-white' : 'bg-zinc-800 text-zinc-400'}`}
+                        >
+                            Stories ({stories.filter(s => s.status === 'pending').length})
+                        </button>
+                        <button
+                            onClick={() => setActiveTab('analytics')}
+                            className={`px-3 py-1 rounded-full text-xs font-bold transition-colors ${activeTab === 'analytics' ? 'bg-blue-500 text-white' : 'bg-zinc-800 text-zinc-400'}`}
+                        >
+                            📊
                         </button>
                     </div>
                 </div>
@@ -253,6 +274,61 @@ const AdminDashboard: React.FC = () => {
                                     </div>
                                 ))
                             )}
+                        </div>
+                    </div>
+                ) : activeTab === 'stories' ? (
+                    <div className="space-y-4">
+                        <h3 className="font-bold text-lg flex items-center gap-2"><span className="text-2xl">📖</span> User Intel</h3>
+                        {stories.filter(s => s.status === 'pending').length === 0 ? (
+                            <p className="text-center text-zinc-500 py-8">No pending stories.</p>
+                        ) : (
+                            stories.filter(s => s.status === 'pending').map(story => (
+                                <div key={story.id} className="bg-zinc-900 border border-zinc-800 p-4 rounded-xl">
+                                    <div className="flex justify-between items-start mb-2">
+                                        <div>
+                                            <p className="font-bold text-sm">{story.author || 'Anon'}</p>
+                                            <p className="text-xs text-purple-400">{story.relation}</p>
+                                        </div>
+                                        <span className="text-[10px] text-zinc-500">{story.timestamp?.toDate?.()?.toLocaleDateString?.() || ''}</span>
+                                    </div>
+                                    <p className="text-sm text-zinc-300 italic mb-3">"{story.content}"</p>
+                                    <div className="flex gap-2">
+                                        <button
+                                            onClick={async () => {
+                                                await addDoc(collection(db, 'sage_memories'), { content: `User Intel (${story.relation}): ${story.content}`, type: 'user_intel', timestamp: serverTimestamp() });
+                                                await updateDoc(doc(db, 'sye_stories', story.id), { status: 'approved' });
+                                            }}
+                                            className="flex-1 py-2 rounded-lg bg-luxury-jade text-white text-xs font-bold"
+                                        >✓ Approve & Train</button>
+                                        <button
+                                            onClick={async () => await updateDoc(doc(db, 'sye_stories', story.id), { status: 'rejected' })}
+                                            className="flex-1 py-2 rounded-lg bg-zinc-800 text-zinc-400 text-xs font-bold"
+                                        >✗ Reject</button>
+                                    </div>
+                                </div>
+                            ))
+                        )}
+                    </div>
+                ) : activeTab === 'analytics' ? (
+                    <div className="space-y-4">
+                        <h3 className="font-bold text-lg flex items-center gap-2"><span className="text-2xl">📊</span> Analytics</h3>
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-xl text-center">
+                                <p className="text-3xl font-bold text-luxury-gold">{requests.length}</p>
+                                <p className="text-xs text-zinc-500 uppercase">Access Requests</p>
+                            </div>
+                            <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-xl text-center">
+                                <p className="text-3xl font-bold text-luxury-jade">{memories.length}</p>
+                                <p className="text-xs text-zinc-500 uppercase">Sage Memories</p>
+                            </div>
+                            <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-xl text-center">
+                                <p className="text-3xl font-bold text-purple-500">{stories.length}</p>
+                                <p className="text-xs text-zinc-500 uppercase">User Stories</p>
+                            </div>
+                            <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-xl text-center">
+                                <p className="text-3xl font-bold text-blue-500">{pendingRequests.length}</p>
+                                <p className="text-xs text-zinc-500 uppercase">Pending Queue</p>
+                            </div>
                         </div>
                     </div>
                 ) : (

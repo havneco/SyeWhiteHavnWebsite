@@ -42,7 +42,11 @@ const checkRedAlert = async (userMessage: string) => {
 };
 
 // --- MAIN CHAT FUNCTION ---
-export const sendMessageToSage = async (history: { role: 'user' | 'model'; content: string }[], newMessage: string) => {
+export const sendMessageToSage = async (
+    history: { role: 'user' | 'model'; content: string }[],
+    newMessage: string,
+    userProfile?: { displayName?: string; role?: string; interests?: string[]; relation?: string }
+) => {
 
     // 1. Red Alert Check on the NEW message (Immediate Reflex)
     await checkRedAlert(newMessage);
@@ -57,6 +61,18 @@ export const sendMessageToSage = async (history: { role: 'user' | 'model'; conte
             memoryContextString = memSnap.docs.map(d => d.data().content);
         } catch (e) {
             console.warn("Could not fetch memories for Sage", e);
+        }
+    }
+
+    // 2.5. Inject User Context if available
+    if (userProfile) {
+        const parts = [];
+        if (userProfile.displayName) parts.push(`The user's name is ${userProfile.displayName}.`);
+        if (userProfile.role) parts.push(`Their role/title is "${userProfile.role}".`);
+        if (userProfile.interests?.length) parts.push(`They are interested in: ${userProfile.interests.join(', ')}.`);
+        if (userProfile.relation) parts.push(`Their relation to Sye is: ${userProfile.relation}.`);
+        if (parts.length > 0) {
+            memoryContextString.push(`[CURRENT USER CONTEXT] ${parts.join(' ')}`);
         }
     }
 
