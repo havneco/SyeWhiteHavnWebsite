@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAdmin } from '../context/AdminContext';
 import { collection, query, orderBy, onSnapshot, updateDoc, doc, Timestamp, addDoc, deleteDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
-import { Check, X, Clock, Mail, ExternalLink, Shield } from 'lucide-react';
+import { Check, X, Clock, Mail, ExternalLink, Shield, LogOut } from 'lucide-react';
 
 interface AccessRequest {
     id: string;
