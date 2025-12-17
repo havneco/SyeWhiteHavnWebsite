@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { User, LogIn, LogOut, MessageSquare, Rocket, Settings } from 'lucide-react';
+import { User, LogIn, LogOut, MessageSquare, Rocket, Settings, Lock } from 'lucide-react';
 import { auth, googleProvider } from '../firebase';
 import { signInWithPopup, signOut, onAuthStateChanged, User as FirebaseUser } from 'firebase/auth';
 
@@ -83,6 +83,13 @@ const UserProfileWidget: React.FC = () => {
 
                             {/* Menu Items */}
                             <div className="space-y-1">
+                                {user.email && ['syewhite@gmail.com', 'sye@luxhavn.com'].includes(user.email) && (
+                                    <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-luxury-gold font-bold hover:bg-luxury-gold/10 rounded-lg transition-colors text-left"
+                                        onClick={() => window.location.hash = '#/admin'}
+                                    >
+                                        <Lock size={16} /> SyeOS Command
+                                    </button>
+                                )}
                                 <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-lg transition-colors text-left"
                                     onClick={() => { setIsOpen(false); setActiveModal('history'); }}
                                 >

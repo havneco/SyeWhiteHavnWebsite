@@ -65,10 +65,8 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         if (user.email && allowedEmails.includes(user.email)) {
           setIsAdmin(true);
         } else {
-          console.warn("Unauthorized access attempt:", user.email);
+          // Standard User (Not Admin)
           setIsAdmin(false);
-          await signOut(auth); // Boot them out immediately
-          alert("Access Denied: You are not authorized to view this area.");
         }
       } else {
         setIsAdmin(false);
