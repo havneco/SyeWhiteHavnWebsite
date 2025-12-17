@@ -63,7 +63,7 @@ const Chatbot: React.FC = () => {
       if (import.meta.env.VITE_GEMINI_API_KEY) {
         const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
         const model = genAI.getGenerativeModel({
-          model: "gemini-1.5-flash-001",
+          model: "gemini-2.0-flash-exp",
           systemInstruction: constructSystemPrompt()
         });
 
@@ -113,7 +113,7 @@ const Chatbot: React.FC = () => {
     }
   };
 
-  if (!import.meta.env.VITE_GEMINI_API_KEY) return null; // Don't render if no key
+
 
   return (
     <>
@@ -196,30 +196,38 @@ const Chatbot: React.FC = () => {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input Area */}
         <div className="p-3 bg-white dark:bg-luxury-black border-t border-gray-200 dark:border-white/10">
-          <div className="relative flex items-center">
-            <input
-              type="text"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyDown={handleKeyPress}
-              placeholder="Ask about Havn, Real Estate, or AI..."
-              className="w-full bg-gray-100 dark:bg-white/5 border border-transparent focus:border-luxury-jade dark:focus:border-luxury-gold rounded-xl pl-4 pr-12 py-3 text-sm text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none transition-colors"
-              disabled={isLoading}
-            />
-            <button
-              onClick={handleSend}
-              disabled={!inputValue.trim() || isLoading}
-              className="absolute right-2 p-1.5 bg-luxury-jade dark:bg-luxury-gold rounded-lg text-white dark:text-black hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-            >
-              <Send size={16} />
-            </button>
-          </div>
-          <div className="mt-2 text-[10px] text-center text-gray-400 flex items-center justify-center gap-1">
-            <AlertCircle size={10} />
-            <span>AI can make mistakes. Verify important info.</span>
-          </div>
+          {!import.meta.env.VITE_GEMINI_API_KEY ? (
+            <div className="p-2 bg-red-100 border border-red-200 text-red-700 rounded-lg text-xs text-center">
+              <strong>Configuration Error:</strong><br />
+              Missing VITE_GEMINI_API_KEY in .env file.
+            </div>
+          ) : (
+            <>
+              <div className="relative flex items-center">
+                <input
+                  type="text"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyDown={handleKeyPress}
+                  placeholder="Ask about Havn, Real Estate, or AI..."
+                  className="w-full bg-gray-100 dark:bg-white/5 border border-transparent focus:border-luxury-jade dark:focus:border-luxury-gold rounded-xl pl-4 pr-12 py-3 text-sm text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none transition-colors"
+                  disabled={isLoading}
+                />
+                <button
+                  onClick={handleSend}
+                  disabled={!inputValue.trim() || isLoading}
+                  className="absolute right-2 p-1.5 bg-luxury-jade dark:bg-luxury-gold rounded-lg text-white dark:text-black hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                >
+                  <Send size={16} />
+                </button>
+              </div>
+              <div className="mt-2 text-[10px] text-center text-gray-400 flex items-center justify-center gap-1">
+                <AlertCircle size={10} />
+                <span>AI can make mistakes. Verify important info.</span>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </>
@@ -227,3 +235,4 @@ const Chatbot: React.FC = () => {
 };
 
 export default Chatbot;
+
