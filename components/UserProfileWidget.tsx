@@ -4,6 +4,9 @@ import { User, LogIn, LogOut, MessageSquare, Rocket, Settings } from 'lucide-rea
 import { auth, googleProvider } from '../firebase';
 import { signInWithPopup, signOut, onAuthStateChanged, User as FirebaseUser } from 'firebase/auth';
 
+import PersonalizationModal from './PersonalizationModal';
+import HistoryModal from './HistoryModal';
+
 const GoogleIcon = () => (
     <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
@@ -16,6 +19,7 @@ const GoogleIcon = () => (
 const UserProfileWidget: React.FC = () => {
     const [user, setUser] = useState<FirebaseUser | null>(null);
     const [isOpen, setIsOpen] = useState(false);
+    const [activeModal, setActiveModal] = useState<'none' | 'history' | 'profile'>('none');
 
     useEffect(() => {
         if (!auth) {
@@ -45,63 +49,69 @@ const UserProfileWidget: React.FC = () => {
     };
 
     return (
-        <div className="fixed bottom-6 left-6 z-[100]">
-            <div className="relative">
-                {/* Trigger Button */}
-                <button
-                    onClick={() => user ? setIsOpen(!isOpen) : handleLogin()}
-                    className="w-12 h-12 rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-xl flex items-center justify-center overflow-hidden hover:scale-105 transition-transform group"
-                >
-                    {user ? (
-                        user.photoURL ? (
-                            <img src={user.photoURL} alt={user.displayName || "User"} className="w-full h-full object-cover" />
+        <>
+            <div className="fixed bottom-6 left-6 z-[100]">
+                <div className="relative">
+                    {/* Trigger Button */}
+                    <button
+                        onClick={() => user ? setIsOpen(!isOpen) : handleLogin()}
+                        className="w-12 h-12 rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-xl flex items-center justify-center overflow-hidden hover:scale-105 transition-transform group"
+                    >
+                        {user ? (
+                            user.photoURL ? (
+                                <img src={user.photoURL} alt={user.displayName || "User"} className="w-full h-full object-cover" />
+                            ) : (
+                                <div className="bg-luxury-gold text-black font-bold w-full h-full flex items-center justify-center">
+                                    {user.displayName?.charAt(0) || "U"}
+                                </div>
+                            )
                         ) : (
-                            <div className="bg-luxury-gold text-black font-bold w-full h-full flex items-center justify-center">
-                                {user.displayName?.charAt(0) || "U"}
+                            <div className="p-2 hover:scale-110 transition-transform">
+                                <GoogleIcon />
                             </div>
-                        )
-                    ) : (
-                        <div className="p-2 hover:scale-110 transition-transform">
-                            <GoogleIcon />
+                        )}
+                    </button>
+
+                    {/* Popover Menu */}
+                    {isOpen && user && (
+                        <div className="absolute bottom-16 left-0 w-64 bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl border border-zinc-200 dark:border-zinc-800 p-2 overflow-hidden animate-fade-in-up">
+                            {/* Header */}
+                            <div className="p-3 border-b border-zinc-100 dark:border-zinc-800 mb-2">
+                                <p className="font-bold text-sm text-gray-900 dark:text-white truncate">{user.displayName}</p>
+                                <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                            </div>
+
+                            {/* Menu Items */}
+                            <div className="space-y-1">
+                                <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-lg transition-colors text-left"
+                                    onClick={() => { setIsOpen(false); setActiveModal('history'); }}
+                                >
+                                    <MessageSquare size={16} /> History with Sage
+                                </button>
+                                <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-lg transition-colors text-left"
+                                    onClick={() => { setIsOpen(false); setActiveModal('profile'); }}
+                                >
+                                    <Settings size={16} /> Personalization
+                                </button>
+                            </div>
+
+                            <div className="h-px bg-zinc-100 dark:bg-zinc-800 my-2" />
+
+                            <button
+                                onClick={handleLogout}
+                                className="w-full flex items-center gap-3 px-3 py-2 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-lg transition-colors text-left"
+                            >
+                                <LogOut size={16} /> Sign Out
+                            </button>
                         </div>
                     )}
-                </button>
-
-                {/* Popover Menu */}
-                {isOpen && user && (
-                    <div className="absolute bottom-16 left-0 w-64 bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl border border-zinc-200 dark:border-zinc-800 p-2 overflow-hidden animate-fade-in-up">
-                        {/* Header */}
-                        <div className="p-3 border-b border-zinc-100 dark:border-zinc-800 mb-2">
-                            <p className="font-bold text-sm text-gray-900 dark:text-white truncate">{user.displayName}</p>
-                            <p className="text-xs text-gray-500 truncate">{user.email}</p>
-                        </div>
-
-                        {/* Menu Items */}
-                        <div className="space-y-1">
-                            <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-lg transition-colors text-left"
-                                onClick={() => alert("Chat History coming soon!")}
-                            >
-                                <MessageSquare size={16} /> History with Sage
-                            </button>
-                            <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-lg transition-colors text-left"
-                                onClick={() => alert("Personalization coming soon!")}
-                            >
-                                <Settings size={16} /> Personalization
-                            </button>
-                        </div>
-
-                        <div className="h-px bg-zinc-100 dark:bg-zinc-800 my-2" />
-
-                        <button
-                            onClick={handleLogout}
-                            className="w-full flex items-center gap-3 px-3 py-2 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-lg transition-colors text-left"
-                        >
-                            <LogOut size={16} /> Sign Out
-                        </button>
-                    </div>
-                )}
+                </div>
             </div>
-        </div>
+
+            {/* Modals */}
+            <HistoryModal isOpen={activeModal === 'history'} onClose={() => setActiveModal('none')} />
+            <PersonalizationModal isOpen={activeModal === 'profile'} onClose={() => setActiveModal('none')} />
+        </>
     );
 };
 
