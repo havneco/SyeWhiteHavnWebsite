@@ -72,6 +72,9 @@ const Navigation: React.FC = () => {
     }
   }, [location, navigate]);
 
+  // Hide Navigation on Admin Dashboard
+  if (location.pathname === '/admin') return null;
+
   return (
     <>
       <nav className={`fixed w-full z-50 transition-all duration-300 border-b ${scrolled ? 'bg-luxury-white/80 dark:bg-luxury-black/80 backdrop-blur-xl border-gray-200 dark:border-white/10 py-3' : 'bg-transparent border-transparent py-6'}`}>

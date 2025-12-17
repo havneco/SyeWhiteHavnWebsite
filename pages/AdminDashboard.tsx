@@ -195,10 +195,19 @@ const AdminDashboard: React.FC = () => {
             {/* Header */}
             <div className="bg-zinc-900 border-b border-zinc-800 sticky top-0 z-10 px-4 py-4 safe-top">
                 <div className="flex justify-between items-center max-w-lg mx-auto">
-                    <h1 className="text-xl font-bold flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                        SyeOS Admin
-                    </h1>
+                    <div className="flex items-center gap-4">
+                        <button
+                            onClick={() => window.location.hash = '#/'}
+                            className="text-zinc-500 hover:text-white transition-colors"
+                            title="Exit to Home"
+                        >
+                            <LogOut size={18} className="rotate-180" />
+                        </button>
+                        <h1 className="text-xl font-bold flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                            SyeOS Admin
+                        </h1>
+                    </div>
                     <div className="flex gap-2">
                         <button
                             onClick={() => setActiveTab('pending')}
