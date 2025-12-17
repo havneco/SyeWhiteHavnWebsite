@@ -1,28 +1,32 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenAI } from "@google/genai";
 
-let aiClient: any = null;
-
-const getAiClient = () => {
-  if (!aiClient) {
-    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-    if (!apiKey) {
-      // Return null or throw, but better to handle gracefully in UI
-      console.warn("API Key is missing.");
-      return null;
-    }
-    aiClient = new GoogleGenerativeAI(apiKey);
-  }
-  return aiClient;
-}
+const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
 
 export const generateAsset = async (prompt: string): Promise<string> => {
-  // Placeholder for Image Generation
-  // The standard Gemini 1.5 Web SDK does not support Image Generation (Imagen) directly yet.
-  // Returning a placeholder to prevent build/runtime errors.
-  console.log("Mock Generating Image for:", prompt);
-  return `https://placehold.co/600x400/000000/FFF?text=${encodeURIComponent(prompt.slice(0, 20))}`;
-};
+  try {
+    const response = await ai.models.generateContent({
+      model: 'gemini-1.5-flash',
+      contents: prompt,
+      config: {
+        imageConfig: {
+          aspectRatio: "1:1", // Changed to square for better headshot/social consistency
+          imageSize: "1K"
+        }
+      }
+    });
 
+    // Extract the base64 image from the response
+    for (const part of response.candidates?.[0]?.content?.parts || []) {
+      if (part.inlineData) {
+        return `data:image/png;base64,${part.inlineData.data}`;
+      }
+    }
+    throw new Error("No image data returned");
+  } catch (error) {
+    console.error("AI Generation Error:", error);
+    throw error;
+  }
+};
 
 export const SITE_PROMPTS = {
   hero_main: "Photorealistic portrait of a 32-year-old Native American man with dark curly hair and a kind smile. He is wearing a blue textured blazer over a blue floral patterned button-down shirt. The background is a blurred soft-focus stone wall or old city street. Natural lighting, high definition, professional headshot style.",

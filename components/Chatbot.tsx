@@ -60,10 +60,10 @@ const Chatbot: React.FC = () => {
   // Initialize Chat Session
   useEffect(() => {
     try {
-      if (process.env.API_KEY) {
-        const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      if (import.meta.env.VITE_GEMINI_API_KEY) {
+        const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
         const chat = ai.chats.create({
-          model: 'gemini-2.5-flash',
+          model: 'gemini-1.5-flash',
           config: {
             systemInstruction: constructSystemPrompt(),
             temperature: 0.7,
@@ -81,30 +81,8 @@ const Chatbot: React.FC = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isOpen]);
 
-  // Auto-show welcome message after delay
-  const [showWelcome, setShowWelcome] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!isOpen) setShowWelcome(true);
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, []);
-
   const handleSend = async () => {
-    if (!inputValue.trim()) return;
-
-    // UI check for API key
-    if (!process.env.API_KEY) {
-      setMessages(prev => [...prev, { role: 'user', text: inputValue.trim() }]);
-      setInputValue('');
-      setTimeout(() => {
-        setMessages(prev => [...prev, { role: 'model', text: "I'm currently offline (System: API Key Missing). Please check Vercel settings." }]);
-      }, 500);
-      return;
-    }
-
-    if (!chatSession) return;
+    if (!inputValue.trim() || !chatSession) return;
 
     const userMsg = inputValue.trim();
     setInputValue('');
@@ -131,34 +109,16 @@ const Chatbot: React.FC = () => {
     }
   };
 
-  // if (!process.env.API_KEY) return null; // REMOVED to allow UI to render
+  if (!import.meta.env.VITE_GEMINI_API_KEY) return null; // Don't render if no key
 
   return (
     <>
-      {/* Welcome Bubble */}
-      {!isOpen && showWelcome && (
-        <div className="fixed bottom-24 right-6 z-40 max-w-[200px] bg-white dark:bg-luxury-black border border-gray-200 dark:border-white/10 p-4 rounded-xl rounded-br-none shadow-xl animate-bounce-subtle">
-          <button
-            onClick={() => setShowWelcome(false)}
-            className="absolute top-1 right-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
-          >
-            <X size={12} />
-          </button>
-          <p className="text-sm text-gray-800 dark:text-gray-200">
-            Hi! I'm <span className="font-bold text-luxury-jade dark:text-luxury-gold">Sage</span>. Ask me anything about Sye's projects.
-          </p>
-        </div>
-      )}
-
       {/* Toggle Button */}
       <button
-        onClick={() => {
-          setIsOpen(!isOpen);
-          setShowWelcome(false);
-        }}
+        onClick={() => setIsOpen(!isOpen)}
         className={`fixed bottom-6 right-6 z-50 p-4 rounded-full shadow-2xl transition-all duration-300 ${isOpen
-            ? 'bg-gray-800 text-white rotate-90'
-            : 'bg-luxury-jade dark:bg-luxury-gold text-white dark:text-black hover:scale-110'
+          ? 'bg-gray-800 text-white rotate-90'
+          : 'bg-luxury-jade dark:bg-luxury-gold text-white dark:text-black hover:scale-110'
           }`}
       >
         {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
@@ -167,8 +127,8 @@ const Chatbot: React.FC = () => {
       {/* Chat Window */}
       <div
         className={`fixed bottom-24 right-6 w-[90vw] md:w-96 bg-white dark:bg-luxury-black border border-gray-200 dark:border-white/10 rounded-2xl shadow-2xl z-50 flex flex-col transition-all duration-300 origin-bottom-right overflow-hidden ${isOpen
-            ? 'opacity-100 scale-100 translate-y-0'
-            : 'opacity-0 scale-95 translate-y-10 pointer-events-none'
+          ? 'opacity-100 scale-100 translate-y-0'
+          : 'opacity-0 scale-95 translate-y-10 pointer-events-none'
           }`}
         style={{ height: '500px', maxHeight: '80vh' }}
       >
@@ -197,8 +157,8 @@ const Chatbot: React.FC = () => {
             >
               <div
                 className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${msg.role === 'user'
-                    ? 'bg-gray-200 dark:bg-white/10 text-gray-600 dark:text-gray-300'
-                    : 'bg-luxury-jade/10 dark:bg-luxury-gold/10 text-luxury-jade dark:text-luxury-gold border border-luxury-jade/20 dark:border-luxury-gold/20'
+                  ? 'bg-gray-200 dark:bg-white/10 text-gray-600 dark:text-gray-300'
+                  : 'bg-luxury-jade/10 dark:bg-luxury-gold/10 text-luxury-jade dark:text-luxury-gold border border-luxury-jade/20 dark:border-luxury-gold/20'
                   }`}
               >
                 {msg.role === 'user' ? <User size={14} /> : <Bot size={14} />}
@@ -206,8 +166,8 @@ const Chatbot: React.FC = () => {
 
               <div
                 className={`p-3 rounded-2xl text-sm max-w-[80%] leading-relaxed ${msg.role === 'user'
-                    ? 'bg-gray-200 dark:bg-white/10 text-gray-900 dark:text-white rounded-tr-none'
-                    : 'bg-white dark:bg-white/5 border border-gray-100 dark:border-white/5 text-gray-700 dark:text-gray-300 rounded-tl-none shadow-sm'
+                  ? 'bg-gray-200 dark:bg-white/10 text-gray-900 dark:text-white rounded-tr-none'
+                  : 'bg-white dark:bg-white/5 border border-gray-100 dark:border-white/5 text-gray-700 dark:text-gray-300 rounded-tl-none shadow-sm'
                   }`}
               >
                 {/* Render line breaks if any */}
