@@ -1,5 +1,5 @@
 
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { getFirestore, collection, getDocs, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 import { constructSystemPrompt } from './sageProtocol';
@@ -13,7 +13,8 @@ const getAiClient = () => {
         return null;
     }
 
-    return new GoogleGenAI({ apiKey });
+    // Initialize the official Generative AI Client
+    return new GoogleGenerativeAI(apiKey);
 };
 
 // --- RED ALERT LOGIC ---
@@ -69,37 +70,27 @@ export const sendMessageToSage = async (history: { role: 'user' | 'model'; conte
     }
 
     try {
-        // We use the 'gemini-1.5-flash' for speed/cost or 'gemini-1.5-pro' for quality.
-        // Using flash for the "Reflex" speed user requested.
-        const model = client.models.generateContent({
+        // Use the official Node/Web SDK method
+        const model = client.getGenerativeModel({
             model: 'gemini-1.5-flash',
+            systemInstruction: systemInstruction
+        });
+
+        // Map history to the format expected by the new SDK (role: 'user' | 'model', parts: [{ text: ... }])
+        const chatHistory = history.map(h => ({
+            role: h.role === 'model' ? 'model' : 'user',
+            parts: [{ text: h.content }]
+        }));
+
+        const result = await model.generateContent({
             contents: [
-                { role: 'system', parts: [{ text: systemInstruction }] }, // System prompt usually passed differently in new SDK?
-                // Actually, in @google/genai, system instruction is a separate config usually, or we just prepend it.
-                // Let's check typical usage. For now, prepending to history is reliable.
-                ...history.map(h => ({ role: h.role, parts: [{ text: h.content }] })),
+                ...chatHistory,
                 { role: 'user', parts: [{ text: newMessage }] }
             ]
         });
 
-        // Wait, @google/genai syntax might be slightly different for 'generateContent' with history.
-        // It's often easier to use 'startChat' for history.
-
-        // Let's use the simple generation for now to avoid state issues in this utility.
-        const result = await client.models.generateContent({
-            model: 'gemini-1.5-flash',
-            config: {
-                systemInstruction: systemInstruction, // Supported in newer models
-            },
-            contents: [
-                ...history.map(h => ({ role: h.role === 'model' ? 'model' : 'user', parts: [{ text: h.content }] })),
-                { role: 'user', parts: [{ text: newMessage }] }
-            ]
-        });
-
-        // 5. Extract Text
-        // @google/genai returns a nice object.
-        return result.response.text();
+        const response = result.response;
+        return response.text();
 
     } catch (error) {
         console.error("Sage Brain Malfunction:", error);
