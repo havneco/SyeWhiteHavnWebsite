@@ -82,7 +82,7 @@ const SageChat: React.FC = () => {
                 if (profileDoc.exists()) {
                     setUserProfile(profileDoc.data() as UserProfile);
                 }
-            } catch (e) { console.warn("Could not fetch profile", e); }
+            } catch (e) { console.debug("Profile fetch skipped (permissions):", e); }
         };
         fetchProfile();
     }, [user]);

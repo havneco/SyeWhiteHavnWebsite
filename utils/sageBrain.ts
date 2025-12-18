@@ -60,7 +60,7 @@ export const sendMessageToSage = async (
             const memSnap = await getDocs(collection(db, 'sage_memories'));
             memoryContextString = memSnap.docs.map(d => d.data().content);
         } catch (e) {
-            console.warn("Could not fetch memories for Sage", e);
+            console.debug("Sage Memories inaccessible (likely permission/guest):", e);
         }
     }
 
