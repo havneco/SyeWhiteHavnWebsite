@@ -136,7 +136,7 @@ const SageChat: React.FC = () => {
 
         try {
             // Send to Sage Brain
-            const response = await sendMessageToSage(newHistory, userMsg, userProfile || undefined);
+            const response = await sendMessageToSage(newHistory, userMsg, userProfile || undefined, user);
 
             // Save Model Response to Firestore
             if (user && db) {

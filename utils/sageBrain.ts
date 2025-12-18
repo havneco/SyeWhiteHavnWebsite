@@ -45,17 +45,22 @@ const checkRedAlert = async (userMessage: string) => {
 export const sendMessageToSage = async (
     history: { role: 'user' | 'model'; content: string }[],
     newMessage: string,
-    userProfile?: { displayName?: string; role?: string; interests?: string[]; relation?: string }
+    userProfile?: { displayName?: string; role?: string; interests?: string[]; relation?: string },
+    user?: any
 ) => {
 
     // 1. Red Alert Check on the NEW message (Immediate Reflex)
-    await checkRedAlert(newMessage);
+    // Only attempt to write red alerts if we have a user (assuming only logged in users can write)
+    // If strict admin-only is needed, check user.email
+    if (user) {
+        await checkRedAlert(newMessage);
+    }
 
     // 2. Fetch Memories (The "Daily Snapshot" simulation)
     // specific optimization: We fetch these once per session in a real app, 
     // but here we fetch fresh to ensure "Hotfixes" work immediately as requested.
     let memoryContextString: string[] = [];
-    if (db) {
+    if (db && user) {
         try {
             const memSnap = await getDocs(collection(db, 'sage_memories'));
             memoryContextString = memSnap.docs.map(d => d.data().content);
