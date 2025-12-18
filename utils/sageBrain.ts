@@ -6,7 +6,7 @@ import { constructSystemPrompt } from './sageProtocol';
 
 const getAiClient = () => {
     // Attempt to get key from Vite env
-    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY?.trim();
 
     if (!apiKey) {
         console.warn("Gemini API Key missing for Sage. Please set VITE_GEMINI_API_KEY in .env");
@@ -70,18 +70,12 @@ export const sendMessageToSage = async (
     }
 
     // 2.5. Inject User Context if available
-    if (userProfile || user) {
+    if (userProfile) {
         const parts = [];
-
-        // Admin Recognition for Sye
-        if (user?.email && ['syewhite@gmail.com', 'sye@luxhavn.com'].includes(user.email)) {
-            parts.push(`[SYSTEM NOTICE: You are speaking to your creator, Sye White. Address him familiarly as 'Sye', acknowledge his admin status, and be ready to discuss high-level architecture.]`);
-        }
-
-        if (userProfile?.displayName) parts.push(`The user's name is ${userProfile.displayName}.`);
-        if (userProfile?.role) parts.push(`Their role/title is "${userProfile.role}".`);
-        if (userProfile?.interests?.length) parts.push(`They are interested in: ${userProfile.interests.join(', ')}.`);
-        if (userProfile?.relation) parts.push(`Their relation to Sye is: ${userProfile.relation}.`);
+        if (userProfile.displayName) parts.push(`The user's name is ${userProfile.displayName}.`);
+        if (userProfile.role) parts.push(`Their role/title is "${userProfile.role}".`);
+        if (userProfile.interests?.length) parts.push(`They are interested in: ${userProfile.interests.join(', ')}.`);
+        if (userProfile.relation) parts.push(`Their relation to Sye is: ${userProfile.relation}.`);
 
         if (parts.length > 0) {
             memoryContextString.push(`[CURRENT USER CONTEXT] ${parts.join(' ')}`);
@@ -120,8 +114,15 @@ export const sendMessageToSage = async (
         const response = result.response;
         return response.text();
 
-    } catch (error) {
-        console.error("Sage Brain Malfunction:", error);
-        return "I apologize, I'm having trouble retrieving that information right now. (System Error)";
+        return response.text();
+
+    } catch (error: any) {
+        console.error("Sage Brain Malfunction Details:", {
+            message: error.message,
+            status: error.status,
+            statusText: error.statusText,
+            fullError: error
+        });
+        return `I apologize, I'm having trouble retrieving that information right now. (System Error: ${error.message || 'Unknown'})`;
     }
 };
