@@ -130,7 +130,7 @@ const SageChat: React.FC = () => {
                     lastMessage: userMsg
                 }, { merge: true });
             } catch (e) {
-                console.error("Failed to save message", e);
+                console.warn("Failed to save user message (permissions), ignoring...", e);
             }
         }
 
@@ -140,11 +140,16 @@ const SageChat: React.FC = () => {
 
             // Save Model Response to Firestore
             if (user && db) {
-                await addDoc(collection(db, 'users', user.uid, 'chats', 'general', 'messages'), {
-                    role: 'model',
-                    content: response,
-                    timestamp: serverTimestamp()
-                });
+                try {
+                    await addDoc(collection(db, 'users', user.uid, 'chats', 'general', 'messages'), {
+                        role: 'model',
+                        content: response,
+                        timestamp: serverTimestamp()
+                    });
+                } catch (e) {
+                    console.warn("Failed to save model response (permissions), showing locally", e);
+                    setMessages(prev => [...prev, { role: 'model', content: response }]);
+                }
             } else {
                 setMessages(prev => [...prev, { role: 'model', content: response || "..." }]);
             }
