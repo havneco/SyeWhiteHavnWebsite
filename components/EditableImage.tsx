@@ -172,9 +172,15 @@ const EditableImage: React.FC<EditableImageProps> = ({
 
       {/* Admin Badge */}
       {isAdmin && !isHovering && !showLinkInput && (
-        <div className="absolute top-2 right-2 bg-luxury-gold text-black p-2 rounded-full shadow-lg z-10 scale-75">
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setShowLinkInput(true);
+          }}
+          className="absolute top-2 right-2 bg-luxury-gold text-black p-2 rounded-full shadow-lg z-10 scale-75 cursor-pointer hover:scale-90 transition-transform"
+        >
           <Edit3 size={14} />
-        </div>
+        </button>
       )}
     </div>
   );

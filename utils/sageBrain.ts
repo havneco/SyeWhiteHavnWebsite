@@ -70,12 +70,19 @@ export const sendMessageToSage = async (
     }
 
     // 2.5. Inject User Context if available
-    if (userProfile) {
+    if (userProfile || user) {
         const parts = [];
-        if (userProfile.displayName) parts.push(`The user's name is ${userProfile.displayName}.`);
-        if (userProfile.role) parts.push(`Their role/title is "${userProfile.role}".`);
-        if (userProfile.interests?.length) parts.push(`They are interested in: ${userProfile.interests.join(', ')}.`);
-        if (userProfile.relation) parts.push(`Their relation to Sye is: ${userProfile.relation}.`);
+
+        // Admin Recognition for Sye
+        if (user?.email && ['syewhite@gmail.com', 'sye@luxhavn.com'].includes(user.email)) {
+            parts.push(`[SYSTEM NOTICE: You are speaking to your creator, Sye White. Address him familiarly as 'Sye', acknowledge his admin status, and be ready to discuss high-level architecture.]`);
+        }
+
+        if (userProfile?.displayName) parts.push(`The user's name is ${userProfile.displayName}.`);
+        if (userProfile?.role) parts.push(`Their role/title is "${userProfile.role}".`);
+        if (userProfile?.interests?.length) parts.push(`They are interested in: ${userProfile.interests.join(', ')}.`);
+        if (userProfile?.relation) parts.push(`Their relation to Sye is: ${userProfile.relation}.`);
+
         if (parts.length > 0) {
             memoryContextString.push(`[CURRENT USER CONTEXT] ${parts.join(' ')}`);
         }
