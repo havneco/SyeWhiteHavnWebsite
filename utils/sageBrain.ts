@@ -91,14 +91,13 @@ export const sendMessageToSage = async (
         return "I am currently offline (Missing API Key). Please configure my brain settings.";
     }
 
-    try {
-        // Use the official Node/Web SDK method
+    const generateWithModel = async (modelName: string) => {
         const model = client.getGenerativeModel({
-            model: 'gemini-2.0-flash-exp',
+            model: modelName,
             systemInstruction: systemInstruction
         });
 
-        // Map history to the format expected by the new SDK (role: 'user' | 'model', parts: [{ text: ... }])
+        // Map history to the format expected by the new SDK
         const chatHistory = history.map(h => ({
             role: h.role === 'model' ? 'model' : 'user',
             parts: [{ text: h.content }]
@@ -111,10 +110,31 @@ export const sendMessageToSage = async (
             ]
         });
 
-        const response = result.response;
-        return response.text();
+        return result.response.text();
+    };
 
-        return response.text();
+    try {
+        try {
+            // Attempt 1: Gemini 2.0 Flash Exp (Smartest/Newest)
+            console.log("Sage: Attempting logic with gemini-2.0-flash-exp...");
+            return await generateWithModel('gemini-2.0-flash-exp');
+
+        } catch (primaryError: any) {
+            console.warn("Sage: Primary model failed, attempting fallback...", primaryError.message);
+
+            try {
+                // Attempt 2: Gemini 1.5 Flash (Stable)
+                console.log("Sage: Fallback to gemini-1.5-flash...");
+                return await generateWithModel('gemini-1.5-flash');
+
+            } catch (fallbackError: any) {
+                console.error("Sage Brain Critical Failure:", {
+                    primary: primaryError.message,
+                    fallback: fallbackError.message
+                });
+                throw primaryError; // Throw original error to be caught by outer handler
+            }
+        }
 
     } catch (error: any) {
         console.error("Sage Brain Malfunction Details:", {
