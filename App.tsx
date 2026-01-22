@@ -13,6 +13,7 @@ import { Analytics } from '@vercel/analytics/react';
 
 import ScrollToTop from './components/ScrollToTop';
 import AdminDashboard from './pages/AdminDashboard';
+import StoryPage from './pages/StoryPage';
 
 const App: React.FC = () => {
   return (
@@ -25,6 +26,7 @@ const App: React.FC = () => {
             <main className="flex-grow">
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/story" element={<StoryPage />} />
                 <Route path="/admin" element={<AdminDashboard />} />
                 <Route path="*" element={<Home />} />
               </Routes>

@@ -1,14 +1,23 @@
-import React from 'react';
-import { Download, Copy, Share2, Camera, MapPin, Award } from 'lucide-react';
+import React, { useState } from 'react';
+import { Download, Copy, Check, Share2, Camera, MapPin, Award, MessageSquare } from 'lucide-react';
 import StatsChart from './StatsChart';
 import EditableImage from './EditableImage';
-import { SITE_IMAGES } from '../constants';
+import { SITE_IMAGES, MEDIA_KIT_BIOS } from '../constants';
 
 const MediaKit: React.FC = () => {
-  const copyBio = () => {
-    const bioText = "Sye White is a Tech-Enabled Real Estate Innovator and AI Pioneer based in Helena, Montana. With a background spanning hospitality, 100+ developed AI applications, and commercial real estate, Sye operates at the unique intersection of property development, financial innovation, and emerging technology.";
-    navigator.clipboard.writeText(bioText);
-    // Could add a toast notification here if desired
+  const [copiedShort, setCopiedShort] = useState(false);
+  const [copiedLong, setCopiedLong] = useState(false);
+
+  const copyShortBio = () => {
+    navigator.clipboard.writeText(MEDIA_KIT_BIOS.shortBio);
+    setCopiedShort(true);
+    setTimeout(() => setCopiedShort(false), 2000);
+  };
+
+  const copyLongBio = () => {
+    navigator.clipboard.writeText(MEDIA_KIT_BIOS.longBio);
+    setCopiedLong(true);
+    setTimeout(() => setCopiedLong(false), 2000);
   };
 
   return (
@@ -26,27 +35,26 @@ const MediaKit: React.FC = () => {
 
         <div className="max-w-5xl mx-auto">
 
-          {/* Bio & Downloads Section */}
-          <div className="glass-panel rounded-3xl shadow-2xl overflow-hidden mb-20 p-8 md:p-14 border border-gray-200 dark:border-white/10 bg-white dark:bg-luxury-black/50">
+          {/* Short Bio Section */}
+          <div className="glass-panel rounded-3xl shadow-2xl overflow-hidden mb-10 p-8 md:p-14 border border-gray-200 dark:border-white/10 bg-white dark:bg-luxury-black/50">
             <div className="flex flex-col md:flex-row gap-16">
               <div className="flex-1">
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">The Short Bio</h3>
-                <div className="text-gray-600 dark:text-gray-300 mb-8 bg-gray-50 dark:bg-black/40 p-8 rounded-2xl border border-gray-200 dark:border-white/10 leading-relaxed italic text-lg shadow-inner">
-                  <p className="mb-4">
-                    "Sye White is a Tech-Enabled Real Estate Innovator and AI Pioneer based in Helena, Montana. With a background spanning hospitality, 100+ developed AI applications, and commercial real estate, Sye operates at the unique intersection of property development, financial innovation, and emerging technology."
-                  </p>
-                  <button
-                    onClick={copyBio}
-                    className="text-luxury-jade dark:text-luxury-gold text-sm font-bold flex items-center gap-2 hover:opacity-80 transition-colors uppercase tracking-wider"
-                  >
-                    <Copy size={14} /> Copy to Clipboard
-                  </button>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Short Bio</h3>
+                <p className="text-xs text-gray-500 dark:text-gray-500 uppercase tracking-widest mb-4">For podcasts, intros, etc.</p>
+                <div className="text-gray-600 dark:text-gray-300 mb-8 bg-gray-50 dark:bg-black/40 p-8 rounded-2xl border border-gray-200 dark:border-white/10 leading-relaxed text-base shadow-inner whitespace-pre-line">
+                  {MEDIA_KIT_BIOS.shortBio}
                 </div>
-                <div className="flex flex-wrap gap-4">
-                  <button className="flex items-center gap-2 bg-luxury-jade dark:bg-luxury-gold text-white dark:text-black px-8 py-4 rounded-xl font-bold hover:shadow-lg transition-all hover:-translate-y-1">
-                    <Download size={20} /> Download PDF Kit
-                  </button>
-                </div>
+                <button
+                  onClick={copyShortBio}
+                  className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all ${
+                    copiedShort
+                      ? 'bg-green-500 text-white'
+                      : 'bg-luxury-jade dark:bg-luxury-gold text-white dark:text-black hover:shadow-lg hover:-translate-y-1'
+                  }`}
+                >
+                  {copiedShort ? <Check size={18} /> : <Copy size={18} />}
+                  {copiedShort ? 'Copied!' : 'Copy Short Bio'}
+                </button>
               </div>
 
               {/* Headshots Column */}
@@ -87,6 +95,42 @@ const MediaKit: React.FC = () => {
             </div>
           </div>
 
+          {/* Long Bio Section */}
+          <div className="glass-panel rounded-3xl shadow-xl overflow-hidden mb-20 p-8 md:p-10 border border-gray-200 dark:border-white/10 bg-white dark:bg-luxury-black/50">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Long Bio</h3>
+            <p className="text-xs text-gray-500 dark:text-gray-500 uppercase tracking-widest mb-6">For deeper features</p>
+            <div className="text-gray-600 dark:text-gray-300 mb-6 bg-gray-50 dark:bg-black/40 p-6 rounded-2xl border border-gray-200 dark:border-white/10 leading-relaxed text-sm shadow-inner whitespace-pre-line max-h-64 overflow-y-auto">
+              {MEDIA_KIT_BIOS.longBio}
+            </div>
+            <button
+              onClick={copyLongBio}
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-lg font-bold text-sm transition-all ${
+                copiedLong
+                  ? 'bg-green-500 text-white'
+                  : 'border border-gray-300 dark:border-white/20 hover:border-luxury-jade dark:hover:border-luxury-gold text-gray-700 dark:text-gray-300'
+              }`}
+            >
+              {copiedLong ? <Check size={16} /> : <Copy size={16} />}
+              {copiedLong ? 'Copied!' : 'Copy Long Bio'}
+            </button>
+          </div>
+
+          {/* Talking Points */}
+          <div className="glass-panel rounded-3xl shadow-xl overflow-hidden mb-20 p-8 md:p-10 border border-gray-200 dark:border-white/10 bg-white dark:bg-luxury-black/50">
+            <div className="flex items-center gap-3 mb-8">
+              <MessageSquare className="text-luxury-jade dark:text-luxury-gold" size={24} />
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white">Talking Points for Interviews</h3>
+            </div>
+            <div className="grid md:grid-cols-2 gap-6">
+              {MEDIA_KIT_BIOS.talkingPoints.map((point, idx) => (
+                <div key={idx} className="p-5 bg-gray-50 dark:bg-black/40 rounded-xl border border-gray-200 dark:border-white/10">
+                  <h4 className="text-gray-900 dark:text-white font-bold mb-2">{point.title}</h4>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm">{point.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* Fast Facts Grid */}
           <div className="grid md:grid-cols-4 gap-6 mb-20">
             <div className="glass-panel p-6 rounded-2xl hover:border-luxury-jade dark:hover:border-luxury-gold transition-colors group bg-white dark:bg-luxury-black/30">
@@ -97,7 +141,7 @@ const MediaKit: React.FC = () => {
             <div className="glass-panel p-6 rounded-2xl hover:border-luxury-jade dark:hover:border-luxury-gold transition-colors group bg-white dark:bg-luxury-black/30">
               <Award className="text-luxury-jade dark:text-luxury-gold mb-4 group-hover:scale-110 transition-transform" size={28} />
               <h4 className="text-gray-900 dark:text-white font-bold mb-1">Title</h4>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">Real Estate Broker & AI Dev</p>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">Builder & Founder</p>
             </div>
             <div className="glass-panel p-6 rounded-2xl hover:border-luxury-jade dark:hover:border-luxury-gold transition-colors group bg-white dark:bg-luxury-black/30">
               <Share2 className="text-luxury-jade dark:text-luxury-gold mb-4 group-hover:scale-110 transition-transform" size={28} />
@@ -105,7 +149,7 @@ const MediaKit: React.FC = () => {
               <p className="text-gray-600 dark:text-gray-400 text-sm">Active on YouTube & GitHub</p>
             </div>
             <div className="glass-panel p-6 rounded-2xl hover:border-luxury-jade dark:hover:border-luxury-gold transition-colors group bg-white dark:bg-luxury-black/30">
-              <Camera className="text-gray-400 mb-4 group-hover:scale-110 transition-transform" size={28} />
+              <Camera className="text-luxury-jade dark:text-luxury-gold mb-4 group-hover:scale-110 transition-transform" size={28} />
               <h4 className="text-gray-900 dark:text-white font-bold mb-1">Interviews</h4>
               <p className="text-gray-600 dark:text-gray-400 text-sm">Available for Podcasts</p>
             </div>

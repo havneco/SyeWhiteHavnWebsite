@@ -3,12 +3,15 @@ import React from 'react';
 import Hero from '../components/Hero';
 import About from '../components/About';
 import Expertise from '../components/Expertise';
+import ProofPoints from '../components/ProofPoints';
+import Philosophy from '../components/Philosophy';
+import HavnEcosystem from '../components/HavnEcosystem';
+import LuminaFeature from '../components/LuminaFeature';
 import Projects from '../components/Projects';
 import AppsLibrary from '../components/AppsLibrary';
 import Contact from '../components/Contact';
 import EditableImage from '../components/EditableImage';
 import { SITE_IMAGES } from '../constants';
-
 import MediaKit from '../components/MediaKit';
 
 const Home: React.FC = () => {
@@ -30,7 +33,10 @@ const Home: React.FC = () => {
       </section>
 
       <Expertise />
-      <Projects />
+      <ProofPoints />
+      <Philosophy />
+      <HavnEcosystem />
+      <LuminaFeature />
       <AppsLibrary />
       <MediaKit />
       <Contact />

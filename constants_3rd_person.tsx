@@ -1,6 +1,6 @@
 
-import { Building2, Code2, LineChart, ShieldCheck, Zap, Heart, Search, Users, Lightbulb } from 'lucide-react';
-import { Project, Service, Milestone, ChartData, BrandValue, CaseStudy, AppTool, AudienceSegment, ProofPoint, HavnPillar, Philosophy, StorySection, MediaKitBio } from './types';
+import { Building2, Code2, LineChart, ShieldCheck, Zap, Heart, Search } from 'lucide-react';
+import { Project, Service, Milestone, ChartData, BrandValue, CaseStudy, AppTool } from './types';
 
 export const NAV_ITEMS = [
     { label: 'Home', href: '/' },
@@ -10,12 +10,12 @@ export const NAV_ITEMS = [
     { label: 'Apps', href: '#apps' },
     { label: 'Media Kit', href: '#media-kit' },
     { label: 'Contact', href: '#contact' },
+    { label: 'Pitch 42', href: '#pitch-42' },
 ];
 
 export const CONTACT_INFO = {
     email: "sye@luxhavn.com",
-    phone: "+1 (406) 555-0123",
-    location: "Helena, Montana (serving everywhere)",
+    location: "Helena, Montana",
     social: {
         linkedin: "https://linkedin.com/in/syewhite",
         github: "https://github.com/syewhite",
@@ -25,273 +25,62 @@ export const CONTACT_INFO = {
 
 export const SITE_IMAGES = {
     hero: "https://i.imgur.com/igfNf2j.jpeg",
-    about_personal: "https://i.imgur.com/WXPjejr.jpeg",
+    about_personal: "https://i.imgur.com/WXPjejr.jpeg", // New AI Innovator image
     hospitality_shot: "https://i.imgur.com/PVBTUvE.jpeg",
     adventure_shot: "https://i.imgur.com/AWjD0Im.jpeg",
     dog_training_shot: "https://i.imgur.com/8hbAr4E.jpeg",
     headshot_print: "/sye_headshot.jpg",
     headshot_action: "/sye_adventure.jpg",
-    section_divider: "https://images.unsplash.com/photo-1551524559-8af4e6624178?auto=format&fit=crop&q=80&w=2000",
-    project_0: "https://i.imgur.com/uwIT889.jpeg",
-    project_1: "https://i.imgur.com/iOYQeWm.png",
-    project_2: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000",
+    section_divider: "https://images.unsplash.com/photo-1551524559-8af4e6624178?auto=format&fit=crop&q=80&w=2000", // Montana/Mountain landscape
+    project_0: "https://i.imgur.com/uwIT889.jpeg", // Havn Logo
+    project_1: "https://i.imgur.com/iOYQeWm.png", // Wealth Council Image
+    project_2: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000", // AI/Data abstract
     project_3: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=1000"
 };
 
-// ============================================
-// NEW V2 CONTENT - Homepage
-// ============================================
-
+// [SOLO FOUNDER LENS] - Vision Unconstrained
 export const HERO_CONTENT = {
-    tagline: "Builder. Founder. Lifelong Learner.",
-    headline: "I build AI-powered solutions for people problems.",
-    subhead: "Both me and the products.",
-    stats: "100+ applications built. From wine lists to wealth systems.",
-    obsession: "Currently obsessed with helping people live well.",
-    ctaPrimary: "See What I'm Building",
-    ctaSecondary: "Let's Talk"
+    headline: "Building the Future of Sovereign Living Through AI & Ecosystem Architecture",
+    subhead: "Unconstrained Vision. A solo-founder ecosystem leveraging AI to bring liquidity to luxury and democratize access to the good life.",
+    intersection: "The intersection of luxury assets, holistic wellness, and tokenized access.",
+    ctaPrimary: "View Media Kit",
+    ctaSecondary: "Explore Projects"
 };
 
-export const SHORT_STORY_CONTENT = {
-    header: "The Short Story",
-    intro: "I'm Sye. I spend my time learning, researching, and building.",
-    achievements: [
-        { skill: "wine", detail: "I taught myself wine well enough to earn Wine Spectator awards three years running." },
-        { skill: "real estate", detail: "Taught myself real estate well enough to close $5M in commercial deals." },
-        { skill: "AI", detail: "Taught myself AI well enough to ship 100+ functional applications in 18 months." }
-    ],
-    pattern: "The pattern: figure it out, then help others do the same.",
-    magnumOpus: "My magnum opus is Havn — a one-stop ecosystem for all of a person's needs. Health, wealth, impact, luxury. AI-native, integrated flywheel, causal chain. The goal is simple: help people enjoy a life well lived.",
-    teaser: "I have a longer story if you want it. It explains a lot. But the short version is: I made my life what it is, I am who I am because of my upbringing, and I'm here to solve problems.",
-    ctaText: "Read the Full Story →"
+// [SOLO FOUNDER LENS] - The "Why" behind the "How"
+export const ABOUT_CONTENT = {
+    hook: "In an era where AI replaces teams, one architect can build a world. At 32, I am leveraging autonomous agents to build Havn—executing 100+ prototypes and closing commercial deals with the speed of a firm, but the soul of a founder.",
+    bio: "My name is Sye White, a 5th generation Montana Homesteader and Native American Assiniboine Sioux. My foundation was built bailing hay for $75 a day, but my vision is being built with the most advanced technology on earth. I spent years in hospitality, from wine bars to Michelin-starred service, learning that true luxury is personal. Now, I am translating that ethos into Havn.",
+    bio_havn: "Havn is not just a company; it is my magnum opus. It is the digital and physical manifestation of my family's homestead—480 acres in Eastern Montana—scaled globally.",
+    bio_real_estate: "To fund this vision without diluting control, I turned to the 'snowball method' of real estate. I built a portfolio to finance the dream, ensuring that every brick and every line of code aligns with the sovereign path I've chosen.",
+    current: "Today, I operate as a solo founder amplified by AI. By mastering tools like Gemini and AntiGravity, I have removed the friction between idea and execution. I'm not just designing the future; I'm coding, deploying, and deal-making it into existence, one prototype at a time."
 };
 
-export const AUDIENCE_SEGMENTS: AudienceSegment[] = [
+// [SOLO FOUNDER LENS] - Personal Code of Conduct
+export const BRAND_VALUES: BrandValue[] = [
     {
-        title: "For Family Offices & HNW Individuals",
-        problem: "Your data is fragmented. Your tools don't talk to each other. You need clarity on what you actually have and where it's going.",
-        solution: "Sovereign AI systems. Private dashboards that unify your portfolio, automate reporting, and give you real visibility — without trusting the cloud with everything.",
-        currentBuild: "Currently Building: Aegis — AI infrastructure for family offices who want control.",
+        title: "Sovereignty & Control",
+        description: "I build with AI to maintain full creative and operational independence. No diluted vision, no design-by-committee—just pure execution.",
         icon: ShieldCheck
     },
     {
-        title: "For Operators & Founders",
-        problem: "Messy data, fragmented tools, teams that need better visibility. You know what you need but don't have time to build it.",
-        solution: "Data architecture, AI integration, custom dashboards. I come in, understand your stack, and build what you actually need — fast.",
-        recentWork: "Recent Work: E-commerce data warehousing, portfolio visualization, real estate analysis tools.",
-        icon: Code2
+        title: "Radical Transparency",
+        description: "I share my learning process, my platform experiments, my wins and challenges. Transparency helps clients and partners make informed decisions.",
+        icon: Search
     },
     {
-        title: "For Everyone Else",
-        problem: "You have an idea, a workflow, a bottleneck. You need someone who can figure it out.",
-        solution: "Whatever solves the problem. I've built accessibility apps, media kit generators, task managers, conversation analyzers, video workflow tools. If it can be built, I'll build it.",
-        icon: Lightbulb
+        title: "Execution efficacy",
+        description: "100+ prototypes proves that AI is the ultimate force multiplier. I believe in small footprints and massive impact.",
+        icon: Zap
+    },
+    {
+        title: "Service Excellence",
+        description: "My hospitality roots inform everything I do. Whether it's a real estate transaction or an app, I bring a commitment to exceptional service.",
+        icon: Heart
     }
 ];
 
-export const PROOF_POINTS: ProofPoint[] = [
-    { what: "Applications Built", number: "100+", context: "Shipped in 18 months" },
-    { what: "Real Estate Volume", number: "$5M", context: "2025, part-time" },
-    { what: "Wine Spectator Awards", number: "3", context: "Consecutive years" },
-    { what: "Time to Build Lumina", number: "4 hours", context: "Accessibility app for my mom" }
-];
-
-export const PHILOSOPHY_VALUES: Philosophy[] = [
-    {
-        title: "Convenience is Key.",
-        description: "If it's not easy to use, people won't use it. I build for adoption, not admiration."
-    },
-    {
-        title: "Confidence is Key.",
-        description: "I'd rather be clear and wrong than vague and safe. Every system I build has a point of view."
-    },
-    {
-        title: "Teamwork Makes the Dream Work.",
-        description: "I operate as a solo founder amplified by AI — but I know when to bring in the right people. Ego doesn't build companies."
-    },
-    {
-        title: "The Greatest Thing You'll Ever Learn...",
-        description: "...is just to love, and be loved in return. (Yes, I'm quoting Moulin Rouge. It's my favorite movie. Sue me.)"
-    }
-];
-
-export const HAVN_ECOSYSTEM: HavnPillar[] = [
-    {
-        name: "HealthHavn",
-        tagline: "The Foundation",
-        description: "Your vitality drives everything else. We aggregate biometrics to link physical health with decision-making energy.",
-        status: "Active Development"
-    },
-    {
-        name: "WealthHavn",
-        tagline: "The Engine",
-        description: "Sovereign financial architecture. A unified dashboard connecting capital allocation to life goals. This is where Aegis lives.",
-        status: "Active Development"
-    },
-    {
-        name: "ImpactHavn",
-        tagline: "The Legacy",
-        description: "Wealth with purpose. Scalable philanthropy and community building for multi-generational impact.",
-        status: "Designed"
-    },
-    {
-        name: "LuxHavn",
-        tagline: "The Reward",
-        description: "Tokenized access to the good life. Fractional ownership of world-class experiences and properties.",
-        status: "Designed"
-    }
-];
-
-export const LUMINA_FEATURE = {
-    header: "Lumina: Sensory Bridge",
-    story: "My mom was diagnosed with a degenerative eye condition. She's losing her sight.\n\nI heard the news. Four hours later, she had an app that reads her mail, checks expiration dates, describes what's in front of her, and talks to her when she's alone.\n\nThat's what I mean when I say I figure things out.\n\nLumina is free. If you or someone you know needs it, it's yours.",
-    cta: "Launch Lumina →",
-    url: "https://lumina-sensory-bridge-1091719440895.us-west1.run.app"
-};
-
-export const CREDENTIALS = [
-    "5th Generation Montana Homesteader",
-    "Assiniboine Sioux (Fort Belknap)",
-    "Former Sommelier & Maître d'",
-    "Commercial Real Estate Broker",
-    "Wine Spectator Award Winner (x3)"
-];
-
-export const CONTACT_CONTENT = {
-    header: "Let's Build Something",
-    copy: "I work with family offices, operators, and founders who have real problems to solve.",
-    subCopy: "If you're looking for someone who can figure it out — whatever \"it\" is — let's talk.",
-    abundance: "I always try to give in abundance. Fair exchange. If I can help, I will.",
-    email: "sye@luxhavn.com",
-    location: "Helena, Montana (serving everywhere)"
-};
-
-export const FOOTER_TAGLINE = "Helping people enjoy a life well lived.";
-
-// ============================================
-// STORY PAGE CONTENT
-// ============================================
-
-export const STORY_PAGE_CONTENT = {
-    title: "The Long Version",
-    subhead: "You clicked through, so here it is. This explains a lot.",
-    sections: [
-        {
-            part: 1,
-            title: "The Setup",
-            content: [
-                "I'm a 5th generation Montana homesteader. Assiniboine Sioux through Fort Belknap. That sounds stable, rooted. It wasn't.",
-                "My childhood was... unconventional. Trailer parks, constant moves, adults making choices that didn't prioritize me. I won't list it all here — some of it I'm still piecing together — but the short version is: I learned early that no one was coming to save me.",
-                "I was in foster care from 14 to 17. Ate lunch alone in the music room teaching myself piano. Barely graduated high school — teachers let me pass out of sympathy, except physics where I had an A. Something about how systems work made sense when nothing else did.",
-                "I went to college, got a 0.7 GPA, dropped out. Worked in a factory to pay off the debt. Then I went back to Montana and started over."
-            ]
-        },
-        {
-            part: 2,
-            title: "The Building",
-            content: [
-                "Here's the pattern that's defined my life:",
-                "**Wine:** No one taught me. I studied until I could hold my own with Michelin-starred chefs and master sommeliers. Earned Wine Spectator awards three years running. Helped open restaurants. Became the guy people trusted with their wine programs.",
-                "**Real Estate:** No one taught me. Got my license, focused on commercial, closed $5M last year working part-time. Learned to read deals, structure transactions, see what others miss.",
-                "**AI:** No one taught me. Spent 8-14 hours a day inside development environments until I could build anything I could imagine. 100+ applications in 18 months.",
-                "The pattern is always the same: no credentials, no connections, no safety net. So I figure it out."
-            ]
-        },
-        {
-            part: 3,
-            title: "The Why",
-            content: [
-                "I build sovereignty — systems that give people clarity, control, and protection over what matters most.",
-                "Why sovereignty? Because I know what it feels like to have none.",
-                "I'm not going to trauma-dump here. But I'll say this: my first memory isn't a happy one. My father was a complicated man — people said he was an angel when he was sober and a devil when he wasn't. He was murdered in 2019. I felt relief and regret in equal measure.",
-                "My mom did her best with what she had. She taught me to be kind to everyone because you don't know what they're going through. I'm still unlearning the belief that survival is all I deserve.",
-                "I tell you this not for sympathy. I tell you because it explains everything I build.",
-                "The kid who learned to read rooms to survive is the same person who now builds systems to help others thrive. The pattern recognition that kept me alive is the same thing that lets me see what a family office actually needs, what an operator is missing, what a problem actually requires.",
-                "I made my life what it is. I am who I am because of my upbringing. And I'm here to solve problems."
-            ]
-        },
-        {
-            part: 4,
-            title: "The Now",
-            content: [
-                "I'm 32. I operate as a solo founder amplified by AI.",
-                "My magnum opus is Havn — an ecosystem built on the belief that health drives wealth drives impact drives the ability to actually enjoy your life. Four pillars, one flywheel.",
-                "I'm also building Aegis — sovereign AI infrastructure for family offices who want real control over their data and decisions.",
-                "And I'm building whatever else needs building. Lumina started because my mom is going blind and I had four hours to do something about it.",
-                "I don't know exactly where this goes. But I know the pattern: figure it out, then help others do the same.",
-                "If you read this far, you probably see something familiar. Let's talk."
-            ]
-        },
-        {
-            part: 5,
-            title: "What I Actually Want",
-            content: [
-                "To help people enjoy a life well lived.",
-                "To build systems that give others the clarity, control, and protection I never had.",
-                "To prove that late bloomers aren't behind — they're just on a different timeline.",
-                "To be trusted by people who have something worth protecting.",
-                "To give in abundance, in fair exchange, with everyone who gives me a chance."
-            ]
-        }
-    ],
-    closingLine: "That's the story. Now let's build something."
-};
-
-// ============================================
-// MEDIA KIT CONTENT
-// ============================================
-
-export const MEDIA_KIT_BIOS: MediaKitBio = {
-    shortBio: "Sye White is a builder, founder, and lifelong learner based in Helena, Montana. A 5th generation homesteader and member of the Assiniboine Sioux tribe, Sye has spent 15 years mastering domains through sheer pattern recognition — from earning Wine Spectator awards as a sommelier to closing $5M in commercial real estate to shipping 100+ AI applications in 18 months.\n\nHis current focus is Havn, an AI-native ecosystem designed to help people manage health, wealth, impact, and lifestyle through one integrated platform. He also builds custom AI infrastructure for family offices and operators who need real solutions, fast.\n\nSye describes his approach simply: \"Figure it out, then help others do the same.\"",
-
-    longBio: "Sye White's path doesn't fit a template.\n\nA 5th generation Montana homesteader and Assiniboine Sioux tribal member, Sye's early life was defined by instability — foster care, constant moves, learning early that no one was coming to save him. He barely graduated high school, dropped out of college with a 0.7 GPA, and worked in a factory to pay off debt.\n\nThen he started building.\n\nWith no formal training, Sye taught himself wine well enough to earn Wine Spectator awards three consecutive years while working alongside Michelin-starred chefs. He taught himself real estate well enough to close $5M in commercial transactions. He taught himself AI development well enough to ship over 100 functional applications in 18 months.\n\nThe pattern is always the same: no credentials, no connections, no safety net. Figure it out.\n\nToday, Sye operates as what he calls a \"solo founder amplified by AI.\" His magnum opus is Havn — an integrated ecosystem connecting health, wealth, impact, and lifestyle through AI-native infrastructure. He also builds custom solutions for family offices and operators who need clarity, control, and systems that actually work.\n\nWhen his mother was diagnosed with a degenerative eye condition, Sye built her an accessibility app in four hours. That's not an exaggeration — it's an example of how he operates.\n\nSye's philosophy is simple: help people enjoy a life well lived. His method: figure it out, then help others do the same.",
-
-    talkingPoints: [
-        {
-            title: "The \"Figure It Out\" Pattern",
-            description: "How teaching yourself wine, real estate, and AI follows the same underlying process"
-        },
-        {
-            title: "Solo Founder, AI-Amplified",
-            description: "What it actually means to build alone with AI as a force multiplier (and when you still need humans)"
-        },
-        {
-            title: "The Havn Ecosystem",
-            description: "Why health, wealth, impact, and luxury aren't separate categories but a causal chain"
-        },
-        {
-            title: "Building Lumina in 4 Hours",
-            description: "The story of responding to his mother's diagnosis with immediate action"
-        },
-        {
-            title: "Late Bloomers Aren't Behind",
-            description: "Why some people are built for emergence rather than early success"
-        },
-        {
-            title: "Sovereignty as a Product",
-            description: "What family offices actually need and why most solutions fail them"
-        }
-    ]
-};
-
-// ============================================
-// LEGACY CONTENT (kept for backwards compatibility)
-// ============================================
-
-export const ABOUT_CONTENT = {
-    hook: SHORT_STORY_CONTENT.intro,
-    bio: SHORT_STORY_CONTENT.achievements.map(a => a.detail).join(' '),
-    bio_havn: SHORT_STORY_CONTENT.magnumOpus,
-    bio_real_estate: SHORT_STORY_CONTENT.pattern,
-    current: SHORT_STORY_CONTENT.teaser
-};
-
-export const BRAND_VALUES: BrandValue[] = PHILOSOPHY_VALUES.map((p, idx) => ({
-    title: p.title,
-    description: p.description,
-    icon: [ShieldCheck, Zap, Users, Heart][idx]
-}));
-
+// [SOLO FOUNDER LENS] - My Toolkit
 export const SERVICES: Service[] = [
     {
         title: "Real Estate Services",
@@ -313,6 +102,7 @@ export const SERVICES: Service[] = [
     }
 ];
 
+// [3RD PERSON] - Case Studies are objective proof
 export const CASE_STUDIES: CaseStudy[] = [
     {
         title: "Real Estate + AI Convergence",
@@ -365,6 +155,7 @@ export const PROJECTS: Project[] = [
     }
 ];
 
+// [3RD PERSON] - Milestones are historical facts
 export const MILESTONES: Milestone[] = [
     { year: "2005", title: "The Foundation", description: "First paying job at age 13 bailing hay for Farmer Art. Earned $75/day, a lunch, and a relentless work ethic." },
     { year: "2010", title: "The Discovery", description: "First encountered Bitcoin while exploring the early utility of digital currency online." },
@@ -462,6 +253,14 @@ export const APP_LIBRARY: AppTool[] = [
         description: "The TikTok for AI-generated micro-apps and games. Build tools, utilities, or games with a prompt, launch to the feed, and vibe out.",
         url: "https://sparky-1091719440895.us-west1.run.app",
         category: "AI Utility",
+        status: "Live"
+    },
+    {
+        id: "lumina-sensory",
+        name: "Lumina: Sensory Bridge",
+        description: "A dedicated accessibility prosthetic using Gemini Live API to provide real-time video-to-speech visual assistance for the visually impaired.",
+        url: "https://lumina-sensory-bridge-1091719440895.us-west1.run.app",
+        category: "HealthTech",
         status: "Live"
     },
     {

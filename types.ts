@@ -61,3 +61,49 @@ export interface AppTool {
   category: "Real Estate" | "Fintech" | "AI Utility" | "Hospitality" | "HealthTech" | "Other";
   status: "Live" | "Beta" | "Internal" | "Proprietary";
 }
+
+// V2 Content Types
+
+export interface AudienceSegment {
+  title: string;
+  problem: string;
+  solution: string;
+  currentBuild?: string;
+  recentWork?: string;
+  icon: LucideIcon;
+}
+
+export interface ProofPoint {
+  what: string;
+  number: string;
+  context: string;
+}
+
+export interface HavnPillar {
+  name: string;
+  tagline: string;
+  description: string;
+  status: "Active Development" | "Designed" | "Beta" | "Live";
+}
+
+export interface Philosophy {
+  title: string;
+  description: string;
+}
+
+export interface StorySection {
+  part: number;
+  title: string;
+  content: string[];
+}
+
+export interface TalkingPoint {
+  title: string;
+  description: string;
+}
+
+export interface MediaKitBio {
+  shortBio: string;
+  longBio: string;
+  talkingPoints: TalkingPoint[];
+}

@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
-import { Mail, Calendar, MapPin, Linkedin, Github, Copy, Check, ExternalLink, ArrowRight } from 'lucide-react';
-import { CONTACT_INFO } from '../constants';
+import { Mail, MapPin, Linkedin, Github, Copy, Check, ArrowRight } from 'lucide-react';
+import { CONTACT_INFO, CONTACT_CONTENT } from '../constants';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -65,9 +65,17 @@ const Contact: React.FC = () => {
         <div className="grid md:grid-cols-2 gap-16">
 
           <div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-8">Let's Build The <span className="text-luxury-jade dark:text-luxury-gold">Future</span></h2>
-            <p className="text-gray-600 dark:text-gray-400 mb-10 leading-relaxed text-lg">
-              Whether you're looking for innovative real estate solutions, technical partnership on AI applications, or insight into where fintech meets real estate — I bring hands-on execution and genuine transparency.
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-8">
+              {CONTACT_CONTENT.header}
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed text-lg">
+              {CONTACT_CONTENT.copy}
+            </p>
+            <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed text-lg">
+              {CONTACT_CONTENT.subCopy}
+            </p>
+            <p className="text-luxury-jade dark:text-luxury-gold mb-10 leading-relaxed text-lg italic border-l-4 border-luxury-jade dark:border-luxury-gold pl-4">
+              {CONTACT_CONTENT.abundance}
             </p>
 
             <div className="space-y-8">
@@ -92,7 +100,7 @@ const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="text-gray-900 dark:text-white font-bold text-lg">Base of Operations</h4>
-                  <p className="text-gray-500 dark:text-gray-400">{CONTACT_INFO.location} (Serving International)</p>
+                  <p className="text-gray-500 dark:text-gray-400">{CONTACT_CONTENT.location}</p>
                 </div>
               </div>
 
