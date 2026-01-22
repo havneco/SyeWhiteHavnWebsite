@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Mail, MapPin, Linkedin, Github, Copy, Check, ArrowRight } from 'lucide-react';
+import { Mail, MapPin, Linkedin, Github, Copy, Check, ArrowRight, Calendar } from 'lucide-react';
 import { CONTACT_INFO, CONTACT_CONTENT } from '../constants';
 
 const Contact: React.FC = () => {
