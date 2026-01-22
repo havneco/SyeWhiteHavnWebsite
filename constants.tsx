@@ -13,7 +13,7 @@ export const NAV_ITEMS = [
 ];
 
 export const CONTACT_INFO = {
-    email: "sye@luxhavn.com",
+    email: "syewhite@gmail.com",
     phone: "+1 (406) 555-0123",
     location: "Helena, Montana (serving everywhere)",
     social: {
@@ -56,9 +56,9 @@ export const SHORT_STORY_CONTENT = {
     header: "The Short Story",
     intro: "I'm Sye. I spend my time learning, researching, and building.",
     achievements: [
-        { skill: "wine", detail: "I taught myself wine well enough to earn Wine Spectator awards three years running." },
-        { skill: "real estate", detail: "Taught myself real estate well enough to close $5M in commercial deals." },
-        { skill: "AI", detail: "Taught myself AI well enough to ship 100+ functional applications in 18 months." }
+        { skill: "wine", detail: "I learned wine well enough to earn Wine Spectator awards three years running." },
+        { skill: "real estate", detail: "Learned real estate well enough to close $5M in deals in 2025, part-time." },
+        { skill: "AI", detail: "Learned AI well enough to ship 100+ functional applications in 18 months." }
     ],
     pattern: "The pattern: figure it out, then help others do the same.",
     magnumOpus: "My magnum opus is Havn — a one-stop ecosystem for all of a person's needs. Health, wealth, impact, luxury. AI-native, integrated flywheel, causal chain. The goal is simple: help people enjoy a life well lived.",
@@ -162,7 +162,7 @@ export const CONTACT_CONTENT = {
     copy: "I work with family offices, operators, and founders who have real problems to solve.",
     subCopy: "If you're looking for someone who can figure it out — whatever \"it\" is — let's talk.",
     abundance: "I always try to give in abundance. Fair exchange. If I can help, I will.",
-    email: "sye@luxhavn.com",
+    email: "syewhite@gmail.com",
     location: "Helena, Montana (serving everywhere)"
 };
 
@@ -191,9 +191,9 @@ export const STORY_PAGE_CONTENT = {
             title: "The Building",
             content: [
                 "Here's the pattern that's defined my life:",
-                "**Wine:** No one taught me. I studied until I could hold my own with Michelin-starred chefs and master sommeliers. Earned Wine Spectator awards three years running. Helped open restaurants. Became the guy people trusted with their wine programs.",
-                "**Real Estate:** No one taught me. Got my license, focused on commercial, closed $5M last year working part-time. Learned to read deals, structure transactions, see what others miss.",
-                "**AI:** No one taught me. Spent 8-14 hours a day inside development environments until I could build anything I could imagine. 100+ applications in 18 months.",
+                "**Wine:** I studied, worked alongside Michelin-starred chefs, and learned from master sommeliers until I could hold my own. Earned Wine Spectator awards three years running. Helped open restaurants. Became the guy people trusted with their wine programs.",
+                "**Real Estate:** Got my license, found mentors, closed $5M in deals in 2025 working part-time. Learned to read deals, structure transactions, see what others miss.",
+                "**AI:** Spent 8-14 hours a day inside development environments until I could build anything I could imagine. 100+ applications in 18 months.",
                 "The pattern is always the same: no credentials, no connections, no safety net. So I figure it out."
             ]
         },
@@ -242,9 +242,9 @@ export const STORY_PAGE_CONTENT = {
 // ============================================
 
 export const MEDIA_KIT_BIOS: MediaKitBio = {
-    shortBio: "Sye White is a builder, founder, and lifelong learner based in Helena, Montana. A 5th generation homesteader and member of the Assiniboine Sioux tribe, Sye has spent 15 years mastering domains through sheer pattern recognition — from earning Wine Spectator awards as a sommelier to closing $5M in commercial real estate to shipping 100+ AI applications in 18 months.\n\nHis current focus is Havn, an AI-native ecosystem designed to help people manage health, wealth, impact, and lifestyle through one integrated platform. He also builds custom AI infrastructure for family offices and operators who need real solutions, fast.\n\nSye describes his approach simply: \"Figure it out, then help others do the same.\"",
+    shortBio: "Sye White is a builder, founder, and lifelong learner based in Helena, Montana. A 5th generation homesteader and member of the Assiniboine Sioux tribe, Sye has spent 15 years mastering domains through pattern recognition, mentors, and relentless practice — from earning Wine Spectator awards as a sommelier to closing $5M in deals in 2025 to shipping 100+ AI applications in 18 months.\n\nHis current focus is Havn, an AI-native ecosystem designed to help people manage health, wealth, impact, and lifestyle through one integrated platform. He also builds custom AI infrastructure for family offices and operators who need real solutions, fast.\n\nSye describes his approach simply: \"Figure it out, then help others do the same.\"",
 
-    longBio: "Sye White's path doesn't fit a template.\n\nA 5th generation Montana homesteader and Assiniboine Sioux tribal member, Sye's early life was defined by instability — foster care, constant moves, learning early that no one was coming to save him. He barely graduated high school, dropped out of college with a 0.7 GPA, and worked in a factory to pay off debt.\n\nThen he started building.\n\nWith no formal training, Sye taught himself wine well enough to earn Wine Spectator awards three consecutive years while working alongside Michelin-starred chefs. He taught himself real estate well enough to close $5M in commercial transactions. He taught himself AI development well enough to ship over 100 functional applications in 18 months.\n\nThe pattern is always the same: no credentials, no connections, no safety net. Figure it out.\n\nToday, Sye operates as what he calls a \"solo founder amplified by AI.\" His magnum opus is Havn — an integrated ecosystem connecting health, wealth, impact, and lifestyle through AI-native infrastructure. He also builds custom solutions for family offices and operators who need clarity, control, and systems that actually work.\n\nWhen his mother was diagnosed with a degenerative eye condition, Sye built her an accessibility app in four hours. That's not an exaggeration — it's an example of how he operates.\n\nSye's philosophy is simple: help people enjoy a life well lived. His method: figure it out, then help others do the same.",
+    longBio: "Sye White's path doesn't fit a template.\n\nA 5th generation Montana homesteader and Assiniboine Sioux tribal member, Sye's early life was defined by instability — foster care, constant moves, learning early that no one was coming to save him. He barely graduated high school, dropped out of college with a 0.7 GPA, and worked in a factory to pay off debt.\n\nThen he started building.\n\nWith no formal training, Sye learned wine well enough to earn Wine Spectator awards three consecutive years while working alongside Michelin-starred chefs. He learned real estate well enough to close $5M in deals in 2025. He learned AI development well enough to ship over 100 functional applications in 18 months.\n\nThe pattern is always the same: no credentials, no connections, no safety net. Figure it out.\n\nToday, Sye operates as what he calls a \"solo founder amplified by AI.\" His magnum opus is Havn — an integrated ecosystem connecting health, wealth, impact, and lifestyle through AI-native infrastructure. He also builds custom solutions for family offices and operators who need clarity, control, and systems that actually work.\n\nWhen his mother was diagnosed with a degenerative eye condition, Sye built her an accessibility app in four hours. That's not an exaggeration — it's an example of how he operates.\n\nSye's philosophy is simple: help people enjoy a life well lived. His method: figure it out, then help others do the same.",
 
     talkingPoints: [
         {
