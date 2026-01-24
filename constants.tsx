@@ -56,7 +56,7 @@ export const SHORT_STORY_CONTENT = {
     header: "The Short Story",
     intro: "I'm Sye. I spend my time learning, researching, and building.",
     achievements: [
-        { skill: "wine", detail: "I learned wine well enough to earn Wine Spectator awards three years running." },
+        { skill: "wine", detail: "I learned wine well enough to land a restaurant on Wine Spectator's international list in its first year." },
         { skill: "real estate", detail: "Learned real estate well enough to close $5M in deals in 2025, part-time." },
         { skill: "AI", detail: "Learned AI well enough to ship 100+ functional applications in 18 months." }
     ],
