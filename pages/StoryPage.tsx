@@ -272,7 +272,7 @@ const StoryPage: React.FC = () => {
                 I studied wine, worked alongside Michelin-starred chefs, learned from master sommeliers until I could hold my own. Helped land a restaurant on Wine Spectator's international list in its first year. Became the guy people trusted with their wine programs.
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                Got my real estate license, found mentors, closed $5M in deals in 2025 working part-time. Learned to read deals, structure transactions, see what others miss.
+                Got my real estate license, found mentors, closed $5M in deals in 2025 — my Dimes so I can focus on my Dollars. Learned to read deals, structure transactions, see what others miss.
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
                 Spent 8-14 hours a day inside development environments until I could build anything I could imagine. 120 applications in 6 months on an app-a-day challenge.

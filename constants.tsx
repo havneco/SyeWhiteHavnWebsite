@@ -57,7 +57,7 @@ export const SHORT_STORY_CONTENT = {
     intro: "I'm Sye. I spend my time learning, researching, and building.",
     achievements: [
         { skill: "wine", detail: "I learned wine well enough to land a restaurant on Wine Spectator's international list in its first year." },
-        { skill: "real estate", detail: "Learned real estate well enough to close $5M in deals in 2025, part-time." },
+        { skill: "real estate", detail: "Learned real estate well enough to close $5M in deals in 2025 — my Dimes so I can focus on my Dollars." },
         { skill: "AI", detail: "Learned AI well enough to ship 120 applications in 6 months on an app-a-day challenge." }
     ],
     pattern: "The pattern: figure it out, then help others do the same.",
@@ -91,7 +91,7 @@ export const AUDIENCE_SEGMENTS: AudienceSegment[] = [
 
 export const PROOF_POINTS: ProofPoint[] = [
     { what: "Applications Built", number: "120", context: "App-a-day challenge, 6 months" },
-    { what: "Real Estate Volume", number: "$5M", context: "2025, part-time" },
+    { what: "Real Estate Volume", number: "$5M", context: "2025, Dimes for Dollars" },
     { what: "Wine Spectator Awards", number: "3", context: "Consecutive years" },
     { what: "Time to Build Lumina", number: "4 hours", context: "Visual accessibility app for my mom" }
 ];
@@ -192,7 +192,7 @@ export const STORY_PAGE_CONTENT = {
             content: [
                 "Here's the pattern that's defined my life:",
                 "**Wine:** I studied, worked alongside Michelin-starred chefs, and learned from master sommeliers until I could hold my own. Earned Wine Spectator awards three years running. Helped open restaurants. Became the guy people trusted with their wine programs.",
-                "**Real Estate:** Got my license, found mentors, closed $5M in deals in 2025 working part-time. Learned to read deals, structure transactions, see what others miss.",
+                "**Real Estate:** Got my license, found mentors, closed $5M in deals in 2025 — my Dimes so I can focus on my Dollars. Learned to read deals, structure transactions, see what others miss.",
                 "**AI:** Spent 8-14 hours a day inside development environments until I could build anything I could imagine. 120 applications in 6 months on an app-a-day challenge.",
                 "The pattern is always the same: no credentials, no connections, no safety net. So I figure it out."
             ]
