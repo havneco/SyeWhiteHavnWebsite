@@ -291,7 +291,7 @@ const StoryPage: React.FC = () => {
                 Why sovereignty? Because I know what it feels like to have none.
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                My mom did her best with what she had. She taught me to be kind to everyone because you don't know what they're going through. I'm still unlearning the belief that survival is all I deserve.
+                My mom did her best with what she had. She loved me unconditionally. She sacrificed her needs for my wants. She uprooted her life time and time again to try to find a stable footing for us. She worked multiple jobs. She taught me how to see the best in people. She taught me how to be kind to everyone you meet, because you never know what they are going through, and your kindness could be what nudges them in a better direction. I am lucky to have her support now, just as when I was younger. I was lucky to have her as the crazy mom screaming in the stands. I wouldn't have it any other way then, and I wouldn't have it any other way now.
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
                 I tell you this not for sympathy. I tell you because it explains everything I build.
