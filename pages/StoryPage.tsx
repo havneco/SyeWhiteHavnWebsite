@@ -275,7 +275,7 @@ const StoryPage: React.FC = () => {
                 Got my real estate license, found mentors, closed $5M in deals in 2025 working part-time. Learned to read deals, structure transactions, see what others miss.
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                Spent 8-14 hours a day inside development environments until I could build anything I could imagine. 100+ applications in 18 months.
+                Spent 8-14 hours a day inside development environments until I could build anything I could imagine. 120 applications in 6 months on an app-a-day challenge.
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
                 The pattern is always the same: no credentials, no connections, no safety net. So I figure it out.

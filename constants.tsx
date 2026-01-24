@@ -46,7 +46,7 @@ export const HERO_CONTENT = {
     tagline: "Builder. Founder. Lifelong Learner.",
     headline: "I build AI-powered solutions for people problems.",
     subhead: "",
-    stats: "100+ applications built. From wine lists to wealth systems.",
+    stats: "120 applications built in 6 months. From wine lists to wealth systems.",
     obsession: "Currently obsessed with helping people live well.",
     ctaPrimary: "See What I'm Building",
     ctaSecondary: "Let's Talk"
@@ -58,7 +58,7 @@ export const SHORT_STORY_CONTENT = {
     achievements: [
         { skill: "wine", detail: "I learned wine well enough to land a restaurant on Wine Spectator's international list in its first year." },
         { skill: "real estate", detail: "Learned real estate well enough to close $5M in deals in 2025, part-time." },
-        { skill: "AI", detail: "Learned AI well enough to ship 100+ functional applications in 18 months." }
+        { skill: "AI", detail: "Learned AI well enough to ship 120 applications in 6 months on an app-a-day challenge." }
     ],
     pattern: "The pattern: figure it out, then help others do the same.",
     magnumOpus: "My magnum opus is Havn — a one-stop ecosystem for all of a person's needs. Health, wealth, impact, luxury. AI-native, integrated flywheel, causal chain. The goal is simple: help people enjoy a life well lived.",
@@ -90,10 +90,10 @@ export const AUDIENCE_SEGMENTS: AudienceSegment[] = [
 ];
 
 export const PROOF_POINTS: ProofPoint[] = [
-    { what: "Applications Built", number: "100+", context: "Shipped in 18 months" },
+    { what: "Applications Built", number: "120", context: "App-a-day challenge, 6 months" },
     { what: "Real Estate Volume", number: "$5M", context: "2025, part-time" },
     { what: "Wine Spectator Awards", number: "3", context: "Consecutive years" },
-    { what: "Time to Build Lumina", number: "4 hours", context: "Accessibility app for my mom" }
+    { what: "Time to Build Lumina", number: "4 hours", context: "Visual accessibility app for my mom" }
 ];
 
 export const PHILOSOPHY_VALUES: Philosophy[] = [
@@ -193,7 +193,7 @@ export const STORY_PAGE_CONTENT = {
                 "Here's the pattern that's defined my life:",
                 "**Wine:** I studied, worked alongside Michelin-starred chefs, and learned from master sommeliers until I could hold my own. Earned Wine Spectator awards three years running. Helped open restaurants. Became the guy people trusted with their wine programs.",
                 "**Real Estate:** Got my license, found mentors, closed $5M in deals in 2025 working part-time. Learned to read deals, structure transactions, see what others miss.",
-                "**AI:** Spent 8-14 hours a day inside development environments until I could build anything I could imagine. 100+ applications in 18 months.",
+                "**AI:** Spent 8-14 hours a day inside development environments until I could build anything I could imagine. 120 applications in 6 months on an app-a-day challenge.",
                 "The pattern is always the same: no credentials, no connections, no safety net. So I figure it out."
             ]
         },
@@ -322,7 +322,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     },
     {
         title: "Rapid Prototyping at Scale",
-        description: "Built 100+ functional applications across Google AI Studio, Replit, and other platforms.",
+        description: "Built 120 applications in 6 months across Google AI Studio, Replit, and other platforms.",
         impact: "Demonstrated ability to quickly validate concepts, iterate based on feedback, and ship production-ready solutions.",
         tags: ["Development", "MVP", "Speed"]
     },
