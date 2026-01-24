@@ -65,7 +65,7 @@ const StoryPage: React.FC = () => {
               </p>
             </div>
 
-            <SensitiveContent warning="Content warning: domestic abuse, violence, attempted kidnapping. This isn't a happy beginning.">
+            <SensitiveContent warning="Content warning: Trauma dump - contains domestic abuse, violence">
               <p>
                 My earliest years weren't safe. My father was deeply troubled—drugs, violence, unpredictability. People said he was an angel when sober and a devil when he wasn't.
               </p>
@@ -91,7 +91,7 @@ const StoryPage: React.FC = () => {
               </p>
             </div>
 
-            <SensitiveContent warning="Content warning: childhood sexual abuse. This section describes deeply painful experiences.">
+            <SensitiveContent warning="Content warning: Trauma dump - contains childhood sexual abuse">
               <p>
                 But those years also held things no child should experience.
               </p>
@@ -129,7 +129,7 @@ const StoryPage: React.FC = () => {
               </p>
             </div>
 
-            <SensitiveContent warning="Content warning: overdose, emotional abuse. This describes the night that changed everything.">
+            <SensitiveContent warning="Content warning: Trauma dump - contains overdose, emotional abuse">
               <p>
                 One night we all had our limits tested. I was playing video games when my mom had some friends over—nothing major, just 4-5 people having a good time. Her and I weren't on the best footing, and they started getting rowdy.
               </p>
@@ -201,7 +201,7 @@ const StoryPage: React.FC = () => {
               </p>
             </div>
 
-            <SensitiveContent warning="Content warning: violence, murder. This section describes my father's death.">
+            <SensitiveContent warning="Content warning: Trauma dump - contains violence, murder">
               <p>
                 Unbeknownst to me, my dad was getting out of prison just a couple weeks after I moved there. A chance to get to know him—even though there was evidence his history was accurate.
               </p>
