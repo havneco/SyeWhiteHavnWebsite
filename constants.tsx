@@ -45,7 +45,7 @@ export const SITE_IMAGES = {
 export const HERO_CONTENT = {
     tagline: "Builder. Founder. Lifelong Learner.",
     headline: "I build AI-powered solutions for people problems.",
-    subhead: "Both me and the products.",
+    subhead: "",
     stats: "100+ applications built. From wine lists to wealth systems.",
     obsession: "Currently obsessed with helping people live well.",
     ctaPrimary: "See What I'm Building",
