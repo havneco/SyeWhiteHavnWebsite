@@ -307,17 +307,17 @@ const StoryPage: React.FC = () => {
                 I'm 32. I operate as a solo founder amplified by AI.
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                And I'm building whatever needs building. Lumina started because my mom is going blind and I had four hours to do something about it.
+                And I'm building whatever needs building. It's no longer a matter of what can I build, but what should I build.
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                I don't know exactly where this goes. But I know the pattern: figure it out, then help others do the same.
+                I don't know where the world is going to be — we are in such crazy times. What I do know is I am riding the wave, and I hope you join me. We are going to have a lot of fun :)
               </p>
             </div>
 
             {/* Closing */}
             <div className="pt-8 border-t border-gray-100 dark:border-white/5">
               <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-10">
-                If you read this far, you probably see something familiar.
+                If you read this far, I am sure we align in some ways. Reach out, let's connect. I want to hear your story.
               </p>
               <Link
                 to="/#contact"
