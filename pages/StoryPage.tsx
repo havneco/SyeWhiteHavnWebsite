@@ -84,7 +84,7 @@ const StoryPage: React.FC = () => {
             {/* 4-7: Indianapolis */}
             <div className="space-y-6 mb-8">
               <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                Indianapolis from 4 to 7 holds some of my most vivid memories. My mom worked at a daycare so she could still spend time with me while making money. We lived with her boyfriend who grew weed in abandoned houses in the ghetto. We moved around to a couple different spots.
+                Indianapolis from 4 to 7 holds some of my most vivid memories. My mom worked at a daycare so she could still spend time with me while making money. We lived with her boyfriend who grew weed in abandoned houses—another version of instability wearing a different face. We moved around to a couple different spots.
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
                 I have some of my most fun youthful memories from this time. One of my happiest childhood moments was going to the butterfly atrium at the Indianapolis Zoo with my mom when I was 5.
@@ -253,7 +253,7 @@ const StoryPage: React.FC = () => {
                 But that isn't enough. Too many times have I seen people lose themselves in the pursuit.
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                This is how we reach Havn's current architecture: Health → Wealth → Impact → Luxury.
+                This became Havn's architecture: Health → Wealth → Impact → Luxury.
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
                 If your health is not in order, you won't live long enough to worry about your wealth. If your wealth is not in order, it's difficult to make meaningful impact outside your inner circle—though all effort towards positive impact is appreciated. If you can master the causal balance between those three, then you should be able to enjoy the best of life as you see it.
@@ -307,7 +307,7 @@ const StoryPage: React.FC = () => {
                 I'm 32. I operate as a solo founder amplified by AI.
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                And I'm building whatever needs building. It's no longer a matter of what can I build, but what should I build.
+                And I'm building whatever needs building. It's no longer a matter of what I can build, but what I should build.
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
                 I don't know where the world is going to be — we are in such crazy times. What I do know is I am riding the wave, and I hope you join me. We are going to have a lot of fun :)
